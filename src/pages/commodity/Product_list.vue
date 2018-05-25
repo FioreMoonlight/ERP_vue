@@ -1,15 +1,8 @@
-<!--
-**************************************
-*   名称：一个demo
-*   作用：展示如何把页面嵌入框架
-*   作者：
-**************************************
--->
-<template>
+<template>  
 <div class="content">
   <h1>商品汇总</h1>
   <div class="line"></div>
-  <el-form ref="form" :model="form" label-width="80px">
+  <el-form ref="form" :model="form" label-width="80px" size="small">
     <el-form-item label="公司" v-show="ifboos">
       <el-select 
         v-model="value" 
@@ -23,7 +16,34 @@
         </el-option>
       </el-select>
     </el-form-item>
-    <div class="line"></div>
+    
+    <el-form-item label="选择员工" v-show="ifboos">
+      <el-select 
+        v-model="value" 
+        placeholder="请选择公司"
+        v-on:change="change(value)">
+        <el-option
+            v-for ="item in form.company"
+            :key="item.value"
+            :label="item.label"
+            :value="item.value">
+        </el-option>
+      </el-select>
+    </el-form-item>
+    <div class="line" v-show="ifboos"></div>
+    <!-- <el-form-item label="店铺" style="margin-bottom:5px">
+      <el-select 
+        v-model="value" 
+        placeholder="选择店铺"
+        v-on:change="change(value)">
+        <el-option
+            v-for ="item in form.company"
+            :key="item.value"
+            :label="item.label"
+            :value="item.value">
+        </el-option>
+      </el-select>
+    </el-form-item> -->
     <el-form-item label="分类" style="margin-bottom:5px">
       <el-select v-model="form.inf2" placeholder="请选择">
         <el-option
@@ -39,10 +59,12 @@
         <el-col :span="9">
           <el-date-picker
             v-model="form.infor2"
-            type="daterange"
+            type="datetimerange"
+            :picker-options="form.pickerOptions"
             range-separator="至"
             start-placeholder="开始日期"
-            end-placeholder="结束日期">
+            end-placeholder="结束日期"
+            >
           </el-date-picker>
         </el-col>
         <el-col :span="9" style="margin-right:10px">
@@ -92,13 +114,25 @@
     </el-form-item>
   </el-form> 
   
-  
-
-  <!-- <div class="line"></div> -->
-  <div class="right oh">
-    <el-button type="text" @click="open1">批量编辑</el-button>
+  <div class="line" style="margin-bottom:0px"></div>
+  <div class="search-result oh" >
+      <p class="search-result-text">符合查询条件的产品有<span> 6 </span>件</p>
+      <div class="left ">
+        <el-select v-model="form.select1" size="small" slot="prepend" placeholder="请选择" style="width:120px;margin-top:4px">
+          <el-option label="操作" value="1" ></el-option>
+          <el-option label="上架" value="2"></el-option>
+          <el-option label="下架" value="2"></el-option>
+          <el-option label="待审核" value="2"></el-option>
+          <el-option label="审核通过" value="2"></el-option>
+        </el-select>
+      </div>
+      <div class="right ">
+        <el-button type="text" @click="product_edit">批量编辑</el-button>
+      </div>
   </div>
-  <div style="border-bottom:1px solid #ebeef5"></div>
+  
+  
+  <!-- <div style="border-bottom:1px solid #ebeef5"></div> -->
   <el-table
       :data="data.slice((currentPage-1)*pagesize,currentPage*pagesize)"
       border
@@ -112,17 +146,23 @@
         width="35">
       </el-table-column>
       <el-table-column
-        fixed
         prop="name"
-        label="标题"
+        label="产品ID"
         sortable
         width="120"
         >
       </el-table-column>
       <el-table-column
         prop="img"
-        label="图片"
+        label="主图"
         sortable
+        >
+      </el-table-column>
+      <el-table-column
+        prop="name"
+        label="标题"
+        sortable
+        width="120"
         >
       </el-table-column>
       <el-table-column
@@ -133,7 +173,13 @@
       </el-table-column>
       <el-table-column
         prop="SKU"
-        label="价格"
+        label="SKU"
+        sortable
+        >
+      </el-table-column>
+      <el-table-column
+        prop="SKU"
+        label="价格(CNY)"
         sortable
         >
       </el-table-column>
@@ -150,21 +196,28 @@
         >
       </el-table-column>
       <el-table-column
+        prop="SKU"
+        label="操作员"
+        sortable
+        >
+      </el-table-column>
+      <el-table-column
         fixed="right"
         label="操作"
-        width="181">
+        width="75">
         <template slot-scope="scope">
-          <el-button type="primary" icon="el-icon-edit" @click="product_edit" size="small"></el-button>
-          <el-button type="success" icon="el-icon-upload2"  size="small"></el-button>
-          <el-button type="danger" icon="el-icon-delete" @click="product_del" size="small"></el-button>
+          <!-- <el-button type="primary" icon="el-icon-edit" @click="product_edit" size="small"></el-button> -->
           
-          <!-- <el-button @click="product_edit" type="text" size="small">编辑</el-button> 
-          <el-button @click="product_del" type="text" style="color:#F56C6C" size="small">删除</el-button> -->
+          <el-button type="primary" @click="product_edit" size="small">编辑</el-button> 
+          <!-- <el-button @click="product_del" type="text" style="color:#F56C6C" size="small">删除</el-button> -->
         </template>
       </el-table-column>
   </el-table>
-  <div class="right">
-    <el-button type="text" @click="open1">批量编辑</el-button>
+  <div class="search-result oh" >
+      <p class="search-result-text">已选择<span> 0 </span>件产品</p>
+      <div class="right ">
+        <el-button type="text" @click="product_edit">批量编辑</el-button>
+      </div>
   </div>
   <div style="border-bottom:1px solid #ebeef5;clear:both;margin-bottom:20px"></div>
   <el-pagination
@@ -179,7 +232,7 @@
   </el-pagination>
  
   <el-dialog title="批量编辑" :visible.sync="dialogTableVisible" width="60%">
-    <el-form ref="form" :model="form" label-width="80px">
+    <el-form ref="form" :model="form" label-width="100px">
       <el-form-item label="标题">
         <el-input placeholder="请输入内容" v-model="infor" style="margin-bottom:5px">
           <template slot="prepend">开头添加</template>
@@ -219,11 +272,97 @@
         <el-input placeholder="请输入内容" v-model="infor" style="margin-bottom:5px">
           <template slot="prepend">起始数字</template>
         </el-input>
-        <el-input placeholder="请输入内容" v-model="infor" style="margin-bottom:5px">
+        <el-input placeholder="请输入内容" v-model="infor" :disabled="true" style="margin-bottom:5px">
           <template slot="prepend">生成示例</template>
         </el-input>
       </el-form-item>
       <div class="line"></div>
+      <el-form-item label="产品价格">
+        <el-radio-group 
+          v-model="radio1" 
+          size="small"
+          v-on:change="change2(radio1)"
+          style="margin-bottom:10px">
+          <el-radio label="1" border>金额</el-radio>
+          <el-radio label="2" border >比例</el-radio>
+          <el-radio label="3" border >设置</el-radio>
+        </el-radio-group>
+        <div class="box1" v-show="box1">
+          <!-- 金额: -->
+          <el-input placeholder="请输入内容" v-model="infor" >
+            <template slot="prepend"> + </template>
+          </el-input>
+          <span style="color:#E6A23C">
+            对价格进行加减操作
+          </span>
+        </div>
+        <div class="box2" v-show="box2">
+          <!-- 比例: -->
+          <el-input placeholder="请输入内容" v-model="infor" >
+            <template slot="prepend"> x </template>
+          </el-input>
+          <span style="color:#E6A23C">
+            对价格进行乘除操作
+          </span>
+        </div>
+        <div class="box3" v-show="box3">
+          <!-- 设置: -->
+          <el-input placeholder="请输入内容" v-model="infor" >
+          </el-input>
+          <span style="color:#E6A23C">
+            将价格统一设置为一个值
+          </span>
+        </div>
+      </el-form-item>
+      <div class="line"></div>
+      <el-form-item label="产品数量">
+        <el-radio-group 
+          v-model="radio2" 
+          size="small"
+          v-on:change="change3(radio2)"
+          style="margin-bottom:10px">
+          <el-radio label="1" border>数量</el-radio>
+          <el-radio label="2" border >设置</el-radio>
+        </el-radio-group>
+        <div class="box1" v-show="box2_1">
+          <!-- 金额: -->
+          <el-input placeholder="请输入内容" v-model="infor" >
+            <template slot="prepend"> + </template>
+          </el-input>
+          <span style="color:#E6A23C">
+            对价格进行加减操作
+          </span>
+        </div>
+        <div class="box2" v-show="box2_2">
+          <!-- 比例: -->
+          <el-input placeholder="请输入内容" v-model="infor" >
+          </el-input>
+          <span style="color:#E6A23C">
+            将库存统一设置为一个值
+          </span>
+        </div>
+      </el-form-item>
+      <div class="line"></div>
+      <el-form-item label="品牌名称">
+        <el-input placeholder="品牌名称" v-model="infor" style="margin-bottom:5px">
+        </el-input>
+      </el-form-item>
+      <el-form-item label="厂商名称">
+        <el-input placeholder="厂商名称" v-model="infor" style="margin-bottom:5px">
+        </el-input>
+      </el-form-item>
+      <el-form-item label="产品关键词">
+        <el-input placeholder="关键词" v-model="infor" style="margin-bottom:5px">
+        </el-input>
+        <el-input placeholder="关键词" v-model="infor" style="margin-bottom:5px">
+        </el-input>
+        <el-input placeholder="关键词" v-model="infor" style="margin-bottom:5px">
+        </el-input>
+        <el-input placeholder="关键词" v-model="infor" style="margin-bottom:5px">
+        </el-input>
+        <el-input placeholder="关键词" v-model="infor">
+        </el-input>
+      </el-form-item>
     </el-form>
     <div slot="footer" class="dialog-footer">
       <el-button @click="dialogTableVisible = false">取 消</el-button>
@@ -266,9 +405,41 @@
                 value: '4',
                 label: '裤子'
               }],
+              pickerOptions: {
+                shortcuts: [{
+                  text: '最近一周',
+                  onClick(picker) {
+                    const end = new Date();
+                    const start = new Date();
+                    start.setTime(start.getTime() - 3600 * 1000 * 24 * 7);
+                    picker.$emit('pick', [start, end]);
+                  }
+                }, {
+                  text: '最近一个月',
+                  onClick(picker) {
+                    const end = new Date();
+                    const start = new Date();
+                    start.setTime(start.getTime() - 3600 * 1000 * 24 * 30);
+                    picker.$emit('pick', [start, end]);
+                  }
+                }, {
+                  text: '最近三个月',
+                  onClick(picker) {
+                    const end = new Date();
+                    const start = new Date();
+                    start.setTime(start.getTime() - 3600 * 1000 * 24 * 90);
+                    picker.$emit('pick', [start, end]);
+                  }
+                }]
+              }
             },
             dialogTableVisible:false,
             dialogTableVisible1:false,
+            box1:true,
+            box2:false,
+            box3:false,
+            box2_1:true,
+            box2_2:false,
             inf2:'',
             activeName: 'second',
             tableData1: [],
@@ -310,6 +481,31 @@
                 this.data = res.values;
               })             
           },
+          change2(val){
+            if(val == 1){
+              this.box1 = true;
+              this.box2 = false;
+              this.box3 = false;
+            }else if(val == 2){
+              this.box1 = false;
+              this.box2 = true;
+              this.box3 = false;
+            }else if(val == 3){
+              this.box1 = false;
+              this.box2 = false;
+              this.box3 = true;
+            }
+          },
+          change3(val){
+            if(val == 1){
+              this.box2_1 = true;
+              this.box2_2 = false;
+
+            }else if(val == 2){
+              this.box2_1 = false;
+              this.box2_2 = true;
+            }
+          },
           current_change:function(currentPage){
             this.currentPage = currentPage;
           },
@@ -318,7 +514,7 @@
           },
           product_edit(data) {
             router.push({
-              path:'Cd_product_edit'
+              path:'Cd_product_list1'
             })
           },
           product_del() {

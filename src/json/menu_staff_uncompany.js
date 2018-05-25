@@ -21,10 +21,10 @@ const menuList = [
             "routerName": "",
             "name": "密码修改",
           },
-          {
-            "routerName": "",
-            "name": "用户注销",
-          }
+          // {
+          //   "routerName": "",
+          //   "name": "用户注销",
+          // }
         ],
       }
     ]

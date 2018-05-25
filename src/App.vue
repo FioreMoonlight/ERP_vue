@@ -20,6 +20,17 @@ html {
   width: 100%;
   height: 100%;
 }
+.search-result-text{
+  font-size: 14px;
+  color: #606266;    
+  padding:5px 0px;
+  float:left;
+  margin-right: 20px;
+  margin-top: 5px;
+}
+.search-result-text span{
+    color:#F56C6C;
+}
 .line{
   margin: 20px 0;
   border-top: 1px solid #dcdfe6;

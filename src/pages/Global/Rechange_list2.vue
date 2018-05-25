@@ -1,13 +1,6 @@
-<!--
-**************************************
-*   名称：一个demo
-*   作用：展示如何把页面嵌入框架
-*   作者：
-**************************************
--->
 <template>
 <div class="content">
-  <h1>财务审批</h1>
+  <h1>充值记录</h1>
   <div class="line"></div>
   <el-table
     :data="tableData"
@@ -17,11 +10,11 @@
     >
     <el-table-column
       prop="name"
-      label="姓名"
+      label="公司"
       sortable
       >
     </el-table-column>
-    <el-table-column
+    <!-- <el-table-column
       prop="admin"
       label="账号"
       sortable
@@ -32,7 +25,7 @@
       label="权限"
       sortable
       >
-    </el-table-column>
+    </el-table-column> -->
     
     <el-table-column
       prop="money"
@@ -47,6 +40,12 @@
       >
     </el-table-column>
     <el-table-column
+      prop="rcmoney"
+      label="充值时间"
+      sortable
+      >
+    </el-table-column>
+    <!-- <el-table-column
       fixed="right"
       label="操作"
       width="90"
@@ -55,7 +54,7 @@
         <el-button type="primary" @click="showToggle(scope.row)" v-if="scope.row.flag" size="small">确认</el-button>
         <el-button type="info" @click="showToggle(scope.row)" v-else size="small">完成</el-button>
       </template>
-    </el-table-column>
+    </el-table-column> -->
   </el-table>
 </div>
 </template>

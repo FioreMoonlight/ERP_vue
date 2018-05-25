@@ -21,17 +21,53 @@
       <el-col :span="12">
         <el-card class="box-card">
           <div slot="header" class="clearfix">
-              <span>个人信息</span>
+              <span>权限管理</span>
 
-              <el-button style="float: right; padding: 3px 0" type="text">业绩报表</el-button>
-
-              <el-button style="float: right; padding: 3px 0;margin-right:20px" type="text">关联账户</el-button>
+              <el-button style="float: right; padding: 3px 0" type="text">取消关联</el-button>
+              <!-- <el-button style="float: right; padding: 3px 0;margin-right:20px" type="text">关联账户</el-button> -->
             </div>
             <div  class="text item">
-                <div>
-                    姓名:<span>{{this.sf_name}}</span>
-                </div>
-
+              <el-form ref="form" :model="form" label-width="80px"  size="mini">
+                <el-form-item label="账户:">
+                  {{this.sf_name}}(zimin123)
+                </el-form-item>
+                <el-form-item label="状态:">
+                  等待账户确认
+                </el-form-item>
+                <div class="line"></div>
+                <el-form-item label="店铺:">
+                  <el-checkbox :indeterminate="isIndeterminate" v-model="checkAll" @change="handleCheckAllChange">全选</el-checkbox>
+                  <div style="margin: 15px 0;"></div>
+                  <el-checkbox-group v-model="checked1" @change="handleCheckedCitiesChange">
+                    <el-checkbox v-for="city in Option1" :label="city" :key="city">{{city}}</el-checkbox>
+                  </el-checkbox-group>
+                </el-form-item>
+                <el-form-item label="产品:">
+                  <el-checkbox :indeterminate="isIndeterminate" v-model="checkAll" @change="handleCheckAllChange">全选</el-checkbox>
+                  <div style="margin: 15px 0;"></div>
+                  <el-checkbox-group v-model="checked2" @change="handleCheckedCitiesChange">
+                    <el-checkbox v-for="city in Option2" :label="city" :key="city">{{city}}</el-checkbox>
+                  </el-checkbox-group>
+                </el-form-item>
+                <el-form-item label="订单:">
+                  <el-checkbox :indeterminate="isIndeterminate" v-model="checkAll" @change="handleCheckAllChange">全选</el-checkbox>
+                  <div style="margin: 15px 0;"></div>
+                  <el-checkbox-group v-model="checked3" @change="handleCheckedCitiesChange">
+                    <el-checkbox v-for="city in Option3" :label="city" :key="city">{{city}}</el-checkbox>
+                  </el-checkbox-group>
+                </el-form-item>
+                <el-form-item label="财务:">
+                  <el-checkbox :indeterminate="isIndeterminate" v-model="checkAll" @change="handleCheckAllChange">全选</el-checkbox>
+                  <div style="margin: 15px 0;"></div>
+                  <el-checkbox-group v-model="checked4" @change="handleCheckedCitiesChange">
+                    <el-checkbox v-for="city in Option4" :label="city" :key="city">{{city}}</el-checkbox>
+                  </el-checkbox-group>
+                </el-form-item>
+              </el-form>
+                <!-- <div class="search-result-text">
+                    状态: <span>等待账户确认</span>
+                </div> -->
+                <div class="line"></div>
                 <div v-show="ifns">
                   <div class="line"></div>
                   <el-form ref="form" :model="form" label-width="110px">
@@ -56,10 +92,24 @@ import TreeRender from '@/components/tree_render'
 import api from '@/resource/api'
 import Qs from 'qs';
 
+  const Option1 = ['店铺1', '店铺2', '店铺3', '店铺4'];
+  const Option2 = ['产品采集', '产品编辑', '产品跟卖', '产品上传','产品同步','产品分享'];
+  const Option3 = ['接收订单', '处理订单'];
+  const Option4 = ['财务管理'];
   export default{
     name: 'tree',
     data(){
       return{
+        checkAll: false,
+        checked1: ['店铺1', '店铺2'],
+        checked2: ['产品采集'],
+        checked3: ['接收订单'],
+        checked4: ['财务管理'],
+        Option1: Option1,
+        Option2: Option2,
+        Option3: Option3,
+        Option4: Option4,
+        isIndeterminate: true,
         form: {
           name:''
         },
@@ -102,6 +152,15 @@ import Qs from 'qs';
     },    
 
     methods: {
+      handleCheckAllChange(val) {
+        this.checkedCities = val ? cityOptions : [];
+        this.isIndeterminate = false;
+      },
+      handleCheckedCitiesChange(value) {
+        let checkedCount = value.length;
+        this.checkAll = checkedCount === this.cities.length;
+        this.isIndeterminate = checkedCount > 0 && checkedCount < this.cities.length;
+      },
       onSubmit() {
         var uid = localStorage.getItem("uid");
         var tk = localStorage.getItem("token");
@@ -288,6 +347,11 @@ import Qs from 'qs';
 </script>
 
 <style>
+.search-result-text{
+    font-size: 14px;
+    color: #333;
+    margin-bottom: 10px;
+}
 .line{
   margin: 20px 0;
   border-top: 1px solid #dcdfe6;

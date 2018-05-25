@@ -1,4 +1,4 @@
-# my-project 
+# my-project
 
 > A Vue.js project
 
@@ -8,17 +8,11 @@
 # install dependencies
 npm install
 
-
-insert into
-
-
 # serve with hot reload at localhost:8080
 npm run dev
 
 # build for production with minification
 npm run build
-
-delect from 
 
 # build for production and view the bundle analyzer report
 npm run build --report

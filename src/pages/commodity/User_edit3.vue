@@ -7,27 +7,12 @@
 -->
 <template>
 <div class="content">
-  <h1 >个人信息</h1>
+  <h1 >密码修改</h1>
   <div class="line"></div>
 
   <el-form ref="form" :model="infor" label-width="80px">
-    <el-form-item label="姓名">
+    <el-form-item label="原密码">
       <el-input v-model="infor.name"></el-input>
-    </el-form-item>
-    <el-form-item label="身份证号">
-      <el-input v-model="infor.num"></el-input>
-    </el-form-item>
-    <el-form-item label="用户名">
-      <el-input v-model="infor.tel"></el-input>
-    </el-form-item>
-    <el-form-item label="QQ">
-      <el-input v-model="infor.tel"></el-input>
-    </el-form-item>
-    <el-form-item label="邮箱">
-      <el-input v-model="infor.tel"></el-input>
-    </el-form-item>
-    <el-form-item label="手机号">
-      <el-input v-model="infor.tel"></el-input>
     </el-form-item>
     <!-- <el-form-item label="账号">
       <el-input v-model="infor.username"></el-input>
@@ -35,6 +20,12 @@
     <el-form-item label="密码">
       <el-input v-model="infor.username"></el-input>
     </el-form-item> -->
+    <el-form-item label="新密码">
+      <el-input v-model="infor.tel"></el-input>
+    </el-form-item>
+    <el-form-item label="确认密码">
+      <el-input v-model="infor.tel"></el-input>
+    </el-form-item>
     <el-form-item>
       <el-button type="primary" class="right" @click="onSubmit">提交</el-button>
     </el-form-item>

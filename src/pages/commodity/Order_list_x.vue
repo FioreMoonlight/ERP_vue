@@ -1,164 +1,61 @@
+<!--
+**************************************
+*   名称：一个demo
+*   作用：展示如何把页面嵌入框架
+*   作者：
+**************************************
+-->
 <template>
 <div class="content">
-  <h1>FBM订单</h1>
+  <h1>订单列表</h1>
   <div class="line"></div>
-  <div class="select-box">
-    <el-row :gutter="10">
-      <el-col :span="2">
-        <el-select v-model="value1" placeholder="选择店铺" size="mini">
-           <el-option
-             v-for="item in options1"
-             :key="item.value"
-             :label="item.label"
-             :value="item.value">
-           </el-option>
-         </el-select>
-      </el-col>
-      <el-col :span="3">
-        <el-select v-model="value2" placeholder="Amazon订单状态" size="mini">
-           <el-option
-             v-for="item in options2"
-             :key="item.value"
-             :label="item.label"
-             :value="item.value">
-           </el-option>
-         </el-select>
-      </el-col>
-      <el-col :span="2">
-        <el-select v-model="value3" placeholder="支付状态" size="mini">
-           <el-option
-             v-for="item in options3"
-             :key="item.value"
-             :label="item.label"
-             :value="item.value">
-           </el-option>
-         </el-select>
-      </el-col>
-      <el-col :span="3">
-        <el-select v-model="value4" placeholder="国内物流状态" size="mini">
-           <el-option
-             v-for="item in options4"
-             :key="item.value"
-             :label="item.label"
-             :value="item.value">
-           </el-option>
-         </el-select>
-      </el-col>
-      <el-col :span="3">
-        <el-select v-model="value5" placeholder="国际物流状态" size="mini">
-           <el-option
-             v-for="item in options5"
-             :key="item.value"
-             :label="item.label"
-             :value="item.value">
-           </el-option>
-         </el-select>
-      </el-col>
-      <el-col :span="2">
-        <el-select v-model="value6" placeholder="异常状态" size="mini">
-           <el-option
-             v-for="item in options6"
-             :key="item.value"
-             :label="item.label"
-             :value="item.value">
-           </el-option>
-         </el-select>
-      </el-col>
-      <el-col :span="9">
-        <el-date-picker
-          v-model="value_time"
-          type="datetimerange"
-          range-separator="至"
-          start-placeholder="起始日期"
-          end-placeholder="终止日期" size="mini">
-        </el-date-picker>
-      </el-col>
-    </el-row>
-  </div>
-  <div class="search clear">
-    <el-row >
-      <!-- <el-col :span="13"> -->
-        <div class="search-radio left" style="margin-right:20px">
-            <el-radio-group v-model="radio" size="small">
-                <el-radio :label="1" border>订单ID</el-radio>
-                <el-radio :label="2" border>订单号</el-radio>
-                <el-radio :label="3" border>产品SKU</el-radio>
-                <el-radio :label="4" border>国内运单</el-radio>
-                <el-radio :label="5" border>国际运单</el-radio>
-                <el-radio :label="6" border>国际追踪号</el-radio>
-            </el-radio-group>
-        </div>
-      <!-- </el-col>
-      <el-col :span="8"> -->
-        <el-input v-model="input" placeholder="订单号、产品SKU" size="small"></el-input>
-        <el-button type="primary" size="small" class="search-btn">搜索</el-button>
-      <!-- </el-col> -->
-    </el-row>
-      
-      <!-- <input type="text" class="search-input" placeholder="订单号、产品SKU"/> --> 
-  </div>
-  <div class="line" style="margin-bottom:5px"></div>
-  <div class="search-result oh" style="margin-bottom:5px">
-      <p class="search-result-text">符合条件的订单共有<span> 6 </span>个</p>
-      <el-button type="primary" size="small" class="search-btn right">同步订单</el-button>
-  </div>
   <el-table
     :data="tableData"
     border
-    style="width: 100%;margin-bottom:20px"
+    style="width: 100%"
     :default-sort = "{prop: 'cname', order: 'descending'}"
     align="center"
     >
     <el-table-column
       fixed
       prop="id"
-      label="订单ID/订单号"
-      width="220px"
+      label="ID"
       >
-      <template slot-scope="scope">
-        <div>
-          订单ID:{{ scope.row.id}}
-        </div>
-        <div>
-          订单号:{{ scope.row.order_num}}
-        </div>
-      </template>
     </el-table-column>
     <el-table-column
       prop="pic"
-      label="产品信息"
-      width="300px"
+      label="图片"
       >
         <template slot-scope="scope">
-          <div class="left" style="width:45px;height:45px;background:#ccc">
+          <el-popover trigger="hover" placement="right">
+            <div class="hover-img"><img :src=scope.row.pic alt="" /></div>
+            <div slot="reference" class="name-wrapper">
+              <!-- <el-tag size="medium">{{ scope.row.name }}</el-tag> -->
+              <img :src=scope.row.pic alt="" />
+            </div>
             
-          </div>
-          <div class="right">
-           <div> 
-            当地货币符号 价格(eg:EUR 236.33)
-           </div>
-           <div>
-             SKU: JIANGU001923beige
-           </div>
-          </div>
+          </el-popover>
         </template>
     </el-table-column>
     <el-table-column
-      prop="cost"
-      label="成本(¥)"
-      
-      >
-    </el-table-column>
-    <el-table-column
-      prop="profit"
-      label="利润(¥)"
-      
-      >
-    </el-table-column>
-    <el-table-column
       prop="buy_data"
-      label="下单时间"
-      width="155"
+      label="购买日期"
+      width="100"
+      >
+    </el-table-column>
+    <el-table-column
+      prop="order_num"
+      label="订单号"
+      width="180"
+      >
+      <!-- <template slot-scope="scope">
+        <el-button type="text" @click="open">{{scope.row.order_num}}</el-button>
+      </template> -->
+    </el-table-column>
+    <el-table-column
+      prop="operator"
+      label="操作员"
+      width="100"
       >
     </el-table-column>
     <el-table-column
@@ -167,37 +64,40 @@
       width="100"
       >
     </el-table-column>
+
     <el-table-column
       prop="amazon"
       label="Amazon"
       >
     </el-table-column>
     <el-table-column
-      prop="international_order"
-      label="国际运单"
-      width="200"
+      prop="international"
+      label="国际"
+      width="150"
       >
-      <template slot-scope="scope">
-        <el-popover trigger="hover" placement="right">
-          <p class="order-box-title">顺丰快递:238923489732748970234</p>
-          <div slot="reference">
-            单号: {{ scope.row.international_order}} <br />
-            <span>未发货</span>
-          </div>
-        </el-popover>
-      </template>
     </el-table-column>
     <el-table-column
       prop="international_order"
-      label="国内运单"
-      width="200"
+      label="国际单号"
+      width="180"
+      >
+    </el-table-column>
+    <el-table-column
+      prop="domestic"
+      label="国内"
+      width="110"
+      >
+    </el-table-column>
+    <el-table-column
+      prop="domestic_order"
+      label="国内单号"
+      width="180"
       >
       <template slot-scope="scope">
         <el-popover trigger="hover" placement="right">
           <p class="order-box-title">顺丰快递:238923489732748970234</p>
           <div slot="reference">
-            单号:{{ scope.row.international_order}} <br />
-            <span>已发货</span>
+            {{ scope.row.international_order}}
           </div>
         </el-popover>
       </template>
@@ -207,33 +107,42 @@
       label="数量"
       width="50"
       >
-    </el-table-column>  
+    </el-table-column>
+    <el-table-column
+      prop="money"
+      label="金额"
+      width="110"
+      >
+    </el-table-column>
+    <el-table-column
+      prop="cost"
+      label="成本(￥)"
+      width="110"
+      >
+    </el-table-column>
+    <el-table-column
+      prop="profit"
+      label="利润(￥)"
+      width="110"
+      >
+    </el-table-column>
     <el-table-column
       prop="updata_data"
       label="更新时间"
-      width="155"
+      width="150"
       >
     </el-table-column>
     <el-table-column
       fixed="right"
       label="操作"
-      width="65">
+      width="125">
       <template slot-scope="scope">
         <el-button type="primary" icon="el-icon-edit" @click="open" size="small"></el-button>
-        <!-- <el-button type="danger" icon="el-icon-delete"  size="small"></el-button> -->
+        <el-button type="danger" icon="el-icon-delete"  size="small"></el-button>
       </template>
     </el-table-column>
   </el-table>
-  <el-pagination
-    @size-change="handleSizeChange"
-    @current-change="handleCurrentChange"
-    :current-page="currentPage"
-    :page-sizes="[5, 20, 50, 100]"
-    :page-size="pagesize"
-    layout="total, sizes, prev, pager, next, jumper"
-    :total="totalItems"
-    style="clear:both;text-align:center">
-  </el-pagination>
+
   <!--弹窗区域-->
   <el-dialog title="订单详情 - ID:47839" :visible.sync="dialogTableVisible" width="80%">
     <!--内部弹窗区域-->
@@ -463,16 +372,11 @@
     export default {
         data() {
           return {
-            input:'',
-            total:0,//默认数据总数
-            pagesize:7,//每页的数据条数
-            currentPage:1,//默认开始页面
             tableData: [{
-              id: '0000000001',
-              order_num:'000-0000000-0000001',
+              id: '47839',
               pic:'/static/images/lcLU0ZgiTa.png',
-              buy_data:'2018-05-08 22:01:53',
-              
+              buy_data:'2018/05/09',
+              order_num:'305-1226403-5312348',
               operator:'009 高芳芳',
               shop:'德国',
               amazon:'已发货',
@@ -484,7 +388,7 @@
               money:'47.24[EUR]',
               cost:'-',
               profit:'-',
-              updata_data:'2018-05-09 18:16:01'
+              updata_data:'2018/05/09 18:16'
             },{
               id: '47839',
               pic:'/static/images/ntrrLWfLuN.png',
@@ -530,87 +434,62 @@
             ],
             activeName:'first',
             textarea:'',
-            options1: [{
+            options: [{
               value: '选项1',
-              label: 'Jiangu(德国)'
+              label: '黄金糕'
             }, {
               value: '选项2',
-              label: 'Jiangu(美国)'
+              label: '双皮奶'
+            }, {
+              value: '选项3',
+              label: '蚵仔煎'
+            }, {
+              value: '选项4',
+              label: '龙须面'
+            }, {
+              value: '选项5',
+              label: '北京烤鸭'
+            }],
+            options1: [{
+              value: '选项1',
+              label: '黄金糕'
+            }, {
+              value: '选项2',
+              label: '双皮奶'
+            }, {
+              value: '选项3',
+              label: '蚵仔煎'
+            }, {
+              value: '选项4',
+              label: '龙须面'
+            }, {
+              value: '选项5',
+              label: '北京烤鸭'
             }],
             options2: [{
               value: '选项1',
-              label: '已取消'
+              label: '黄金糕'
             }, {
               value: '选项2',
-              label: '所有订单'
+              label: '双皮奶'
             }, {
               value: '选项3',
-              label: '未发货'
+              label: '蚵仔煎'
             }, {
               value: '选项4',
-              label: '等待中'
+              label: '龙须面'
             }, {
               value: '选项5',
-              label: '已发货'
+              label: '北京烤鸭'
             }],
-            options3: [{
-              value: '选项1',
-              label: '已支付'
-            }, {
-              value: '选项2',
-              label: '退款'
-            }],
-            options4: [{
-              value: '选项1',
-              label: '未采购'
-            }, {
-              value: '选项2',
-              label: '待发货'
-            }, {
-              value: '选项3',
-              label: '待签收'
-            }, {
-              value: '选项4',
-              label: '已签收'
-            }],
-            options5: [{
-              value: '选项1',
-              label: '未发货'
-            }, {
-              value: '选项2',
-              label: '已发货'
-            }, {
-              value: '选项3',
-              label: '已签收'
-            }],
-            options6: [{
-              value: '选项1',
-              label: '搁置订单'
-            }, {
-              value: '选项2',
-              label: '问题件'
-            }],
-            value1: '',
-            value2: '',
-            value3: '',
-            value4: '',
-            value5: '',
-            value6: '',
-            value_time:'',
+            value: '',
             innerVisible: false,
             num:'2',
             isAdd:false,
-            isDetil:false,
-            radio:1
+            isDetil:false
           }
         },
         methods: {
-          handleSizeChange:function(size) {
-            this.pagesize = size;
-          },
-          handleCurrentChange:function(currentPage) {
-            this.currentPage = currentPage;
-          },
           handleClick:function(){
 
           },
@@ -646,60 +525,10 @@
         clear: both;
         vertical-align: hidden;
     }
-    .select-box{
-      margin-top: 20px;
-      /*margin-bottom: 150px;*/
-      margin-bottom: 20px;
-    }
 
-    .search{
-        margin-top: 13px;
-        margin-bottom: 10px;
-    }
-
-    .search-radio{
-        /*height:30px;
-        width: 680px;
-        line-height: 30px;
-        padding-left: 15px;
-        border:1px solid #ebeef5;
-        border-radius: 5px 0 0 5px;
-        float: left;*/
-    }
-
-    .search-input{
-        /*width:200px;
-        height:30px;
-        float:left;
-        border:1px solid #ebeef5;
-        margin-left: -1px;
-        border-radius: 0 5px 5px 0;
-        padding:0 10px;*/
-        
-    }
-
-    .search-btn{
-        margin-left: 20px;
-    }
-
-    .search-result{
-        /*padding-top: 10px;*/
-        /*border-top: 2px solid #61adf8;*/
-        /*margin-bottom: 20px;*/
-    }
-
-    .search-result-text{
-      font-size: 14px;
-      color: #606266;
-        width:230px;
-        padding:5px 0px;
-        /*border:1px solid #4a9deb;*/
-        /*border-radius: 5px;*/
-        float:left;
-    }
-
-    .search-result-text span{
-        color:#F56C6C;
+    .line{
+      margin: 20px 0;
+      border-top: 1px solid #dcdfe6;
     }
 
     .name-wrapper{

@@ -34,6 +34,7 @@
   import menuList_staff_u from '@/json/menu_staff_uncompany';
   import menuList_staff from '@/json/menu_staff_company';
   import menuList_boss from '@/json/menu_boss';
+  import menuList_admin from '@/json/menu_admin';
 
   export default {
     data() {
@@ -44,12 +45,14 @@
     mounted(){
       if(localStorage.getItem("status") == 'boss'){
         this.menuList = menuList_boss;
-      }else{
+      }else if(localStorage.getItem("status") == 'staff'){
         if(localStorage.getItem("staffc") == 'ok'){
           this.menuList = menuList_staff;
         }else{
           this.menuList = menuList_staff_u;
         }
+      }else if(localStorage.getItem("status") == 'admin'){
+        this.menuList = menuList_admin;
       }
     }
   }
