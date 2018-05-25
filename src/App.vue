@@ -32,7 +32,7 @@ html {
     color:#F56C6C;
 }
 .line{
-  margin: 20px 0;
+  margin: 10px 0;
   border-top: 1px solid #dcdfe6;
 }
 .title{

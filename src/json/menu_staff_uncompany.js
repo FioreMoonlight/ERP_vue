@@ -17,10 +17,10 @@ const menuList = [
             "routerName": "Cd_User_edit",
             "name": "修改信息",
           },
-          {
-            "routerName": "",
-            "name": "密码修改",
-          },
+          // {
+          //   "routerName": "",
+          //   "name": "密码修改",
+          // },
           // {
           //   "routerName": "",
           //   "name": "用户注销",

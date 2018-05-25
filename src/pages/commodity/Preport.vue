@@ -23,6 +23,18 @@
           :value="item.value">
         </el-option>
       </el-select>
+      <el-date-picker
+        v-model="input6"
+        type="date"
+        placeholder="选择开始日期"
+        size="mini">
+      </el-date-picker>
+      <el-date-picker
+        v-model="input7"
+        type="date"
+        placeholder="选择结束日期"
+        size="mini">
+      </el-date-picker>
     </div>
     <div class="demo-input-size" style="margin-bottom:10px">
       <el-row style="margin-bottom:10px" v-show="status">
@@ -33,22 +45,11 @@
           </el-checkbox-group>
         </el-col>
       </el-row>
-      <el-row style="margin-bottom:10px" v-show="status">
+      <!-- <el-row style="margin-bottom:10px" v-show="status">
         <el-col :span="24">
-          <el-date-picker
-            v-model="input6"
-            type="date"
-            placeholder="选择开始日期"
-            size="mini">
-          </el-date-picker>
-          <el-date-picker
-            v-model="input7"
-            type="date"
-            placeholder="选择结束日期"
-            size="mini">
-          </el-date-picker>
+          
         </el-col>
-      </el-row>
+      </el-row> -->
       <el-row style="margin-bottom:10px">
         <el-col :span="24">
           <span class="left search-result-text">派送方式：</span>

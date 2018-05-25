@@ -23,6 +23,7 @@
       label="ID"
       sortable
       width="130"
+      size="mini"
       >
     </el-table-column>
     <el-table-column

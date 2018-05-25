@@ -19,13 +19,14 @@
                      :value="item.value">
                    </el-option>
                  </el-select>
+                 <el-date-picker v-model="value" type="datetimerange" range-separator="至" start-placeholder="开始日期" end-placeholder="结束日期" size="mini" style="margin-right:0px"></el-date-picker>
+                 <el-button type="primary" size="mini" style="margin-left:20px">查询</el-button>
+                 <el-button type="primary" size="mini" style="margin-left:5px">重置</el-button>
               </div>
 
-                <div class="header" style="margin-bottom:10px">
-                    <el-date-picker v-model="value" type="datetimerange" range-separator="至" start-placeholder="开始日期" end-placeholder="结束日期" size="mini"></el-date-picker>
-                    <el-button type="primary" size="mini" style="margin-left:50px">查询</el-button>
-                    <el-button type="primary" size="mini">重置</el-button>
-                </div>
+                <!-- <div class="header" style="margin-bottom:10px">
+                    
+                </div> -->
                 <div class="middle">
                     <div class="middle-top">
                         <span class="left search-result-text">店铺账号：</span>
@@ -118,12 +119,13 @@
                      :value="item.value">
                    </el-option>
                  </el-select>
+                 <el-date-picker v-model="value" type="datetimerange" range-separator="至" start-placeholder="开始日期" end-placeholder="结束日期" size="mini"></el-date-picker>
+                 <el-button type="primary" size="mini" style="margin-left:20px">查询</el-button>
+                 <el-button type="primary" size="mini" style="margin-left:5px">重置</el-button>
               </div>
-                <div class="header" style="margin-bottom:10px">
-                    <el-date-picker v-model="value" type="datetimerange" range-separator="至" start-placeholder="开始日期" end-placeholder="结束日期" size="mini"></el-date-picker>
-                    <el-button type="primary" size="mini" style="margin-left:50px">查询</el-button>
-                    <el-button type="primary" size="mini">重置</el-button>
-                </div>
+                <!-- <div class="header" style="margin-bottom:10px">
+                    
+                </div> -->
                 <div class="middle">
                     <div class="middle-top">
                         <span class="left search-result-text">店铺账号：</span>
@@ -220,12 +222,13 @@
                      :value="item.value">
                    </el-option>
                  </el-select>
+                 <el-date-picker v-model="value" type="datetimerange" range-separator="至" start-placeholder="开始日期" end-placeholder="结束日期" size="mini"></el-date-picker>
+                 <el-button type="primary" size="mini" style="margin-left:20px">查询</el-button>
+                 <el-button type="primary" size="mini" style="margin-left:5px">重置</el-button>
               </div>
-                <div class="header" style="margin-bottom:10px">
-                    <el-date-picker v-model="value" type="datetimerange" range-separator="至" start-placeholder="开始日期" end-placeholder="结束日期" size="mini"></el-date-picker>
-                    <el-button type="primary" size="mini" style="margin-left:50px">查询</el-button>
-                    <el-button type="primary" size="mini">重置</el-button>
-                </div>
+                <!-- <div class="header" style="margin-bottom:10px">
+                    
+                </div> -->
                 <div class="middle">
                     <div class="middle-top">
                         <span class="left search-result-text">店铺账号：</span>

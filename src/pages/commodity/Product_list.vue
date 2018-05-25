@@ -650,10 +650,10 @@
       }
 </script>
 <style scoped>
-  .line{
+ /* .line{
     margin: 20px 0;
     border-top: 1px solid #dcdfe6;
-  }
+  }*/
   .sub_btn{
     margin-top: 20px;
   }
