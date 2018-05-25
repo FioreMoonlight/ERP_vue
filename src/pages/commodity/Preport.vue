@@ -458,5 +458,6 @@
     .search-result-text{
         font-size: 14px;
         color: #606266;
+        padding: 0;
     }
 </style>

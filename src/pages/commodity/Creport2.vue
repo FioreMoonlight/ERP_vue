@@ -28,14 +28,14 @@
                     
                 </div> -->
                 <div class="middle">
-                    <div class="middle-top">
+                    <div class="middle-top oh">
                         <span class="left search-result-text">店铺账号：</span>
                         <el-checkbox :indeterminate="isIndeterminate" v-model="checkAll" @change="handleCheckAllChange" class="left" style="margin-right:30px">全选</el-checkbox>
                         <el-checkbox-group v-model="Optioned1" @change="handleCheckedCitiesChange" class="left">
                             <el-checkbox v-for="city in Option1" :label="city" :key="city">{{city}}</el-checkbox>
                         </el-checkbox-group>
                     </div>
-                    <div class="middle-top">
+                    <div class="middle-top oh" style="clear:both">
                         <span class="left search-result-text">仓库位置：</span>
                         <el-checkbox :indeterminate="isIndeterminate" v-model="checkAll" @change="handleCheckAllChange" class="left" style="margin-right:30px">全选</el-checkbox>
                         <el-checkbox-group v-model="Optioned2" @change="handleCheckedCitiesChange" class="left">
@@ -365,6 +365,7 @@
     .search-result-text{
         font-size: 14px;
         color: #606266;
+        padding: 0;
     }
     .content{
         position: relative;
