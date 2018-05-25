@@ -2,7 +2,7 @@
 <div class="content">
   <h1>商品汇总</h1>
   <div class="line"></div>
-  <el-form ref="form" :model="form" label-width="80px" size="small">
+  <el-form ref="form" :model="form" label-width="80px" size="mini">
     <!-- <el-form-item label="公司" v-show="ifboos">
       <el-select 
         v-model="value" 
@@ -56,7 +56,7 @@
     </el-form-item>
     <el-form-item label="内容搜索" >
       <el-row  >
-        <el-col :span="9">
+        <el-col :span="9" style="margin-right:10px">
           <el-date-picker
             v-model="form.infor2"
             type="datetimerange"
@@ -64,6 +64,7 @@
             range-separator="至"
             start-placeholder="开始日期"
             end-placeholder="结束日期"
+            style="width:100%"
             >
           </el-date-picker>
         </el-col>
@@ -84,7 +85,7 @@
     </el-form-item>
     <div class="line"></div>
     <el-form-item label="审核状态" style="margin-bottom:5px">
-      <el-radio-group v-model="radio1" size="small">
+      <el-radio-group v-model="radio1" size="mini">
         <el-radio label="1" border>全部(53492)</el-radio>
         <el-radio label="2" border >通过(50123)</el-radio>
         <el-radio label="3" border >待审核(245)</el-radio>
@@ -92,7 +93,7 @@
       </el-radio-group>
     </el-form-item>
     <el-form-item label="上架状态" style="margin-bottom:5px">
-      <el-radio-group v-model="radio2" size="small">
+      <el-radio-group v-model="radio2" size="mini">
         <el-radio label="1" border>全部(53492)</el-radio>
         <el-radio label="2" border >上架(50123)</el-radio>
         <el-radio label="3" border >下架(245)</el-radio>
@@ -102,7 +103,7 @@
       </el-radio-group>
     </el-form-item>
     <el-form-item label="产品类型">
-      <el-radio-group v-model="radio3" size="small">
+      <el-radio-group v-model="radio3" size="mini">
         <el-radio label="1" border>全部(53492)</el-radio>
         <el-radio label="2" border >重点(50123)</el-radio>
         <el-radio label="3" border >原创(245)</el-radio>
@@ -114,11 +115,11 @@
     </el-form-item>
   </el-form> 
   
-  <div class="line" style="margin-bottom:0px"></div>
-  <div class="search-result oh" >
+  <div class="line" style="margin-bottom:5px"></div>
+  <div class="search-result oh" style="margin-bottom:5px">
       <p class="search-result-text">符合查询条件的产品有<span> 6 </span>件</p>
       <div class="left ">
-        <el-select v-model="form.select1" size="small" slot="prepend" placeholder="请选择" style="width:120px;margin-top:4px">
+        <el-select v-model="form.select1" size="mini" slot="prepend" placeholder="请选择" style="width:120px;">
           <el-option label="操作" value="1" ></el-option>
           <el-option label="上架" value="2"></el-option>
           <el-option label="下架" value="2"></el-option>
@@ -127,7 +128,7 @@
         </el-select>
       </div>
       <div class="right ">
-        <el-button type="text" @click="product_edit">批量编辑</el-button>
+        <el-button type="text" @click="product_edit" size="mini">批量编辑</el-button>
       </div>
   </div>
   
@@ -139,6 +140,7 @@
       style="width: 100%"
       :default-sort = "{prop: 'order', order: 'descending'}"
       @selection-change="handleSelectionChange"
+      size="mini"
       >
       <el-table-column
         fixed
@@ -206,17 +208,17 @@
         label="操作"
         width="75">
         <template slot-scope="scope">
-          <!-- <el-button type="primary" icon="el-icon-edit" @click="product_edit" size="small"></el-button> -->
+          <!-- <el-button type="primary" icon="el-icon-edit" @click="product_edit" size="mini"></el-button> -->
           
-          <el-button type="primary" @click="product_edit" size="small">编辑</el-button> 
-          <!-- <el-button @click="product_del" type="text" style="color:#F56C6C" size="small">删除</el-button> -->
+          <el-button type="primary" @click="product_edit" size="mini">编辑</el-button> 
+          <!-- <el-button @click="product_del" type="text" style="color:#F56C6C" size="mini">删除</el-button> -->
         </template>
       </el-table-column>
   </el-table>
   <div class="search-result oh" >
       <p class="search-result-text">已选择<span> 0 </span>件产品</p>
       <div class="right ">
-        <el-button type="text" @click="product_edit">批量编辑</el-button>
+        <el-button type="text" @click="product_edit" size="mini">批量编辑</el-button>
       </div>
   </div>
   <div style="border-bottom:1px solid #ebeef5;clear:both;margin-bottom:20px"></div>
@@ -280,7 +282,7 @@
       <el-form-item label="产品价格">
         <el-radio-group 
           v-model="radio1" 
-          size="small"
+          size="mini"
           v-on:change="change2(radio1)"
           style="margin-bottom:10px">
           <el-radio label="1" border>金额</el-radio>
@@ -318,7 +320,7 @@
       <el-form-item label="产品数量">
         <el-radio-group 
           v-model="radio2" 
-          size="small"
+          size="mini"
           v-on:change="change3(radio2)"
           style="margin-bottom:10px">
           <el-radio label="1" border>数量</el-radio>

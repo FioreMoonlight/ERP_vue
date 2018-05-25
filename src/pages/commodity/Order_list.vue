@@ -37,8 +37,8 @@
     </el-row>
     <el-row :gutter="10">
       
-      <el-col :span="3">
-        <el-select v-model="value2" placeholder="Amazon订单状态" size="mini">
+      <!-- <el-col :span="3"> -->
+        <el-select v-model="value2" placeholder="Amazon订单状态" style="margin-bottom:5px" size="mini">
            <el-option
              v-for="item in options2"
              :key="item.value"
@@ -46,8 +46,8 @@
              :value="item.value">
            </el-option>
          </el-select>
-      </el-col>
-      <el-col :span="2">
+      <!-- </el-col> -->
+      <!-- <el-col :span="2"> -->
         <el-select v-model="value3" placeholder="支付状态" size="mini">
            <el-option
              v-for="item in options3"
@@ -56,8 +56,8 @@
              :value="item.value">
            </el-option>
          </el-select>
-      </el-col>
-      <el-col :span="3">
+      <!-- </el-col> -->
+      <!-- <el-col :span="3"> -->
         <el-select v-model="value4" placeholder="国内物流状态" size="mini">
            <el-option
              v-for="item in options4"
@@ -66,8 +66,8 @@
              :value="item.value">
            </el-option>
          </el-select>
-      </el-col>
-      <el-col :span="3">
+      <!-- </el-col> -->
+      <!-- <el-col :span="3"> -->
         <el-select v-model="value5" placeholder="国际物流状态" size="mini">
            <el-option
              v-for="item in options5"
@@ -76,8 +76,8 @@
              :value="item.value">
            </el-option>
          </el-select>
-      </el-col>
-      <el-col :span="2">
+      <!-- </el-col> -->
+      <!-- <el-col :span="2"> -->
         <el-select v-model="value6" placeholder="异常状态" size="mini">
            <el-option
              v-for="item in options6"
@@ -86,8 +86,8 @@
              :value="item.value">
            </el-option>
          </el-select>
-      </el-col>
-      <el-col :span="9">
+      <!-- </el-col> -->
+      <!-- <el-col :span="9"> -->
         <el-date-picker
           v-model="value_time"
           type="datetimerange"
@@ -95,14 +95,15 @@
           start-placeholder="起始日期"
           end-placeholder="终止日期" size="mini">
         </el-date-picker>
-      </el-col>
+      <!-- </el-col> -->
     </el-row>
   </div>
+  <!-- <div class="line"></div> -->
   <div class="search clear">
     <el-row >
       <!-- <el-col :span="13"> -->
-        <div class="search-radio left" style="margin-right:20px">
-            <el-radio-group v-model="radio" size="small">
+        <div class="search-radio left" style="margin-right:20px;margin-bottom:5px">
+            <el-radio-group v-model="radio" size="mini">
                 <el-radio :label="1" border>订单ID</el-radio>
                 <el-radio :label="2" border>订单号</el-radio>
                 <el-radio :label="3" border>产品SKU</el-radio>
@@ -113,8 +114,8 @@
         </div>
       <!-- </el-col>
       <el-col :span="8"> -->
-        <el-input v-model="input" placeholder="订单号、产品SKU" size="small"></el-input>
-        <el-button type="primary" size="small" class="search-btn">搜索</el-button>
+        <el-input v-model="input" style="margin-right:0" placeholder="订单号、产品SKU" size="mini"></el-input>
+        <el-button type="primary" style="margin-left:5px" size="mini" class="search-btn">搜索</el-button>
       <!-- </el-col> -->
     </el-row>
       
@@ -123,7 +124,7 @@
   <div class="line" style="margin-bottom:5px"></div>
   <div class="search-result oh" style="margin-bottom:5px">
       <p class="search-result-text">符合条件的订单共有<span> 6 </span>个</p>
-      <el-button type="primary" size="small" class="search-btn right">同步订单</el-button>
+      <el-button type="primary" size="mini" class="search-btn right">同步订单</el-button>
   </div>
   <el-table
     :data="tableData"
@@ -131,6 +132,7 @@
     style="width: 100%;margin-bottom:20px"
     :default-sort = "{prop: 'cname', order: 'descending'}"
     align="center"
+    size="mini"
     >
     <el-table-column
       fixed
@@ -242,8 +244,8 @@
       label="操作"
       width="65">
       <template slot-scope="scope">
-        <el-button type="primary" icon="el-icon-edit" @click="open" size="small"></el-button>
-        <!-- <el-button type="danger" icon="el-icon-delete"  size="small"></el-button> -->
+        <el-button type="primary" icon="el-icon-edit" @click="open" size="mini"></el-button>
+        <!-- <el-button type="danger" icon="el-icon-delete"  size="mini"></el-button> -->
       </template>
     </el-table-column>
   </el-table>
@@ -282,21 +284,21 @@
             </div>
             <div class="inner-input-item clear">
                 <div class="inner-input-item-left">
-                    <span>中文:</span><el-input placeholder="请输入内容" size="small"></el-input>
+                    <span>中文:</span><el-input placeholder="请输入内容" size="mini"></el-input>
                 </div>
                 <div class="inner-input-item-right">
-                    <span>英文:</span><el-input placeholder="请输入内容" size="small"></el-input>
+                    <span>英文:</span><el-input placeholder="请输入内容" size="mini"></el-input>
                 </div>
             </div>
             <div class="inner-input-item clear">
                 <div class="inner-input-item-left">
-                    <span>重量:</span><el-input placeholder="请输入内容" size="small"></el-input>
+                    <span>重量:</span><el-input placeholder="请输入内容" size="mini"></el-input>
                 </div>
                 <div class="inner-input-item-right">
                     <span>体积:</span>
-                    <el-input size="small" style="width:50px"></el-input>&nbsp;&nbsp;x&nbsp;&nbsp;
-                    <el-input size="small" style="width:50px"></el-input>&nbsp;&nbsp;x&nbsp;&nbsp;
-                    <el-input size="small" style="width:50px"></el-input>
+                    <el-input size="mini" style="width:50px"></el-input>&nbsp;&nbsp;x&nbsp;&nbsp;
+                    <el-input size="mini" style="width:50px"></el-input>&nbsp;&nbsp;x&nbsp;&nbsp;
+                    <el-input size="mini" style="width:50px"></el-input>
                 </div>
             </div>
             <div class="inner-input-item clear" v-if="isAdd">
@@ -309,23 +311,23 @@
             </div>
             <div class="inner-input-item clear" v-if="isDetil">
                 <div class="inner-input-item-left">
-                    <span>运单:</span><el-input placeholder="请输入内容" size="small"></el-input>
+                    <span>运单:</span><el-input placeholder="请输入内容" size="mini"></el-input>
                 </div>
                 <div class="inner-input-item-right">
-                    <span>追踪:</span><el-input placeholder="请输入内容" size="small"></el-input>
+                    <span>追踪:</span><el-input placeholder="请输入内容" size="mini"></el-input>
                 </div>
             </div>
             <div class="inner-input-item clear" style="margin-bottom:100px;border:none" v-if="isAdd">
                 <div class="inner-input-item-left">
-                    <span>运单:</span><el-input placeholder="请输入内容" size="small"></el-input>
+                    <span>运单:</span><el-input placeholder="请输入内容" size="mini"></el-input>
                 </div>
                 <div class="inner-input-item-right">
-                    <span>追踪:</span><el-input placeholder="请输入内容" size="small"></el-input>
+                    <span>追踪:</span><el-input placeholder="请输入内容" size="mini"></el-input>
                 </div>
             </div>
             <div class="inner-input-item clear" style="margin-bottom:100px;border:none" v-if="isDetil">
                 <div class="inner-input-item-left">
-                    <span>备注:</span><el-input placeholder="请输入内容" size="small"></el-input>
+                    <span>备注:</span><el-input placeholder="请输入内容" size="mini"></el-input>
                     <el-button size="mini" class="add-btn">保存备注</el-button>
                 </div>
 
@@ -350,10 +352,10 @@
                 <a href="">{{item.name}}</a>
                 <p>SKU:{{item.sku}}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;数量:{{item.count}}</p>
                 <div class="edit-input" v-if="isEdit">
-                    <el-input size="small" placeholder="请输入内容" v-model="item.purchasePrice" class="el-input">
+                    <el-input size="mini" placeholder="请输入内容" v-model="item.purchasePrice" class="el-input">
                         <template slot="prepend">采购价</template>
                     </el-input>
-                    <el-input size="small" placeholder="请输入内容" v-model="item.wayBill" class="el-input">
+                    <el-input size="mini" placeholder="请输入内容" v-model="item.wayBill" class="el-input">
                         <template slot="prepend">运单号</template>
                     </el-input>
                 </div>
@@ -384,28 +386,28 @@
             </div>
         <div class="address-input" v-else>
             <div>
-                <el-input size="small" placeholder="请输入内容" style="width:200px;margin-bottom:10px">
+                <el-input size="mini" placeholder="请输入内容" style="width:200px;margin-bottom:10px">
                     <template slot="prepend">联系人</template>
                 </el-input>
-                <el-input size="small" placeholder="请输入内容" style="width:200px">
+                <el-input size="mini" placeholder="请输入内容" style="width:200px">
                     <template slot="prepend">电话号</template>
                 </el-input>
-                <el-input size="small" placeholder="请输入内容" style="width:200px">
+                <el-input size="mini" placeholder="请输入内容" style="width:200px">
                     <template slot="prepend">邮编</template>
                 </el-input>
             </div>
             <div>
-                <el-input size="small" placeholder="请输入内容" style="width:200px;margin-bottom:10px">
+                <el-input size="mini" placeholder="请输入内容" style="width:200px;margin-bottom:10px">
                     <template slot="prepend">州</template>
                 </el-input>
-                <el-input size="small" placeholder="请输入内容" style="width:200px">
+                <el-input size="mini" placeholder="请输入内容" style="width:200px">
                     <template slot="prepend">市</template>
                 </el-input>
-                <el-input size="small" placeholder="请输入内容" style="width:200px">
+                <el-input size="mini" placeholder="请输入内容" style="width:200px">
                     <template slot="prepend">街道门派</template>
                 </el-input>
             </div>
-            <el-input size="small" placeholder="请输入内容" style="width:610px">
+            <el-input size="mini" placeholder="请输入内容" style="width:610px">
                 <template slot="prepend">地址</template>
             </el-input>
         </div>

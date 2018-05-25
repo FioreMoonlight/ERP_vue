@@ -2,7 +2,7 @@
 <div class="content">
   <h1>在线产品</h1>
   <div class="line"></div>
-  <el-form ref="form" :model="form" label-width="80px" size="small">
+  <el-form ref="form" :model="form" label-width="80px" size="mini">
     <el-form-item label="公司" v-show="ifboos">
       <el-select 
         v-model="value" 
@@ -32,7 +32,7 @@
       </el-select>
     </el-form-item>
     <el-form-item label="库存状态" style="margin-bottom:5px">
-      <el-radio-group v-model="radio1" size="small">
+      <el-radio-group v-model="radio1" size="mini">
         <el-radio label="1" border>全部(53492)</el-radio>
         <el-radio label="2" border >有货(50123)</el-radio>
         <el-radio label="3" border >无货(245)</el-radio>
@@ -40,7 +40,7 @@
     </el-form-item>
     <el-form-item label="内容搜索" >
       <el-row  >
-        <el-col :span="9">
+        <el-col :span="9"  style="margin-right:10px">
           <el-input placeholder="请输入内容" v-model="form.infor1" class="input-with-select" >
             <el-select v-model="form.select1" slot="prepend" placeholder="请选择" style="width:120px">
               <el-option label="标题" value="1" ></el-option>
@@ -62,10 +62,10 @@
   <div class="search-result oh" >
       <p class="search-result-text">符合查询条件的产品有<span> 6 </span>件</p>
       <div class="right">
-        <el-button type="text" @click="open1">修改价格</el-button> |
-        <el-button type="text" @click="open2">修改促销价格</el-button> |
-        <el-button type="text" @click="open3">修改库存</el-button> |
-        <el-button type="text" @click="open4">修改备货时间</el-button>
+        <el-button type="text" @click="open1" size="mini">修改价格</el-button> |
+        <el-button type="text" @click="open2" size="mini">修改促销价格</el-button> |
+        <el-button type="text" @click="open3" size="mini">修改库存</el-button> |
+        <el-button type="text" @click="open4" size="mini">修改备货时间</el-button>
         <!-- <el-button type="text" @click="open1">导出货源信息</el-button> -->
       </div>
   </div>
@@ -75,6 +75,7 @@
       style="width: 100%"
       :default-sort = "{prop: 'order', order: 'descending'}"
       @selection-change="handleSelectionChange"
+      size="mini"
       >
       <el-table-column
         fixed
@@ -94,9 +95,9 @@
         width="200"
         >
         <template slot-scope="scope">
-          <el-button type="primary" @click="open6" size="small">修改所有变态基本信息</el-button>
+          <el-button type="primary" @click="open6" size="mini">修改所有变态基本信息</el-button>
           <div>
-            <el-button  type="text" @click="open7" size="small">[查看货源]</el-button>
+            <el-button  type="text" @click="open7" size="mini">[查看货源]</el-button>
           </div>
         </template>
       </el-table-column>
@@ -166,11 +167,11 @@
         label="操作"
         >
         <template slot-scope="scope">
-          <!-- <el-button type="primary" icon="el-icon-edit" @click="product_edit" size="small"></el-button> -->
+          <!-- <el-button type="primary" icon="el-icon-edit" @click="product_edit" size="mini"></el-button> -->
           
-          <el-button type="primary" @click="open5" size="small">价</el-button>
-          <el-button type="primary" @click="open6" size="small">信</el-button>
-          <!-- <el-button @click="product_del" type="text" style="color:#F56C6C" size="small">删除</el-button> -->
+          <el-button type="primary" @click="open5" size="mini">价</el-button>
+          <el-button type="primary" @click="open6" size="mini">信</el-button>
+          <!-- <el-button @click="product_del" type="text" style="color:#F56C6C" size="mini">删除</el-button> -->
         </template>
       </el-table-column>
       <el-table-column
@@ -183,10 +184,10 @@
   <div class="search-result oh" >
       <p class="search-result-text">已选择<span> 0 </span>件产品</p>
       <div class="right">
-        <el-button type="text" @click="open1">修改价格</el-button> |
-        <el-button type="text" @click="open2">修改促销价格</el-button> |
-        <el-button type="text" @click="open3">修改库存</el-button> |
-        <el-button type="text" @click="open4">修改备货时间</el-button>
+        <el-button type="text" @click="open1" size="mini">修改价格</el-button> |
+        <el-button type="text" @click="open2" size="mini">修改促销价格</el-button> |
+        <el-button type="text" @click="open3" size="mini">修改库存</el-button> |
+        <el-button type="text" @click="open4" size="mini">修改备货时间</el-button>
         <!-- <el-button type="text" @click="open1">导出货源信息</el-button> -->
       </div>
   </div>
@@ -208,7 +209,7 @@
       <!-- <el-form-item label="产品价格"> -->
         <el-radio-group 
           v-model="radio1" 
-          size="small"
+          size="mini"
           v-on:change="change2(radio1)"
           style="margin-bottom:10px">
           <div>
@@ -266,7 +267,7 @@
       <!-- <el-form-item label="产品价格"> -->
         <el-radio-group 
           v-model="radio1" 
-          size="small"
+          size="mini"
           v-on:change="change2(radio1)"
           style="margin-bottom:10px">
           <div>
@@ -327,7 +328,7 @@
       <!-- <el-form-item label="产品价格"> -->
         <el-radio-group 
           v-model="radio1" 
-          size="small"
+          size="mini"
           v-on:change="change2(radio1)"
           style="margin-bottom:10px">
           <div>

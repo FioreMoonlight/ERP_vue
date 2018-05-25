@@ -15,7 +15,7 @@
           :value="item.value">
         </el-option>
       </el-select> -->
-      <el-select v-model="value" placeholder="选择店铺">
+      <el-select v-model="value" placeholder="选择店铺" size="mini">
         <el-option
           v-for="item in options"
           :key="item.value"
@@ -27,13 +27,15 @@
         v-model="input6"
         type="date"
         placeholder="选择开始日期"
-        v-show="status">
+        v-show="status"
+        size="mini">
       </el-date-picker>
       <el-date-picker
         v-model="input7"
         type="date"
         placeholder="选择结束日期"
-        v-show="status">
+        v-show="status"
+        size="mini">
       </el-date-picker>
     </div>
     <el-table
@@ -41,6 +43,7 @@
       border
       style="width: 100%;margin-top:10px"
       v-if="status"
+      size="mini"
     >
       <el-table-column
         prop="name"

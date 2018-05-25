@@ -15,7 +15,7 @@
           :value="item.value">
         </el-option>
       </el-select> -->
-      <el-select v-model="value" placeholder="选择店铺">
+      <el-select v-model="value" placeholder="选择店铺" size="mini">
         <el-option
           v-for="item in options"
           :key="item.value"
@@ -38,12 +38,14 @@
           <el-date-picker
             v-model="input6"
             type="date"
-            placeholder="选择开始日期">
+            placeholder="选择开始日期"
+            size="mini">
           </el-date-picker>
           <el-date-picker
             v-model="input7"
             type="date"
-            placeholder="选择结束日期">
+            placeholder="选择结束日期"
+            size="mini">
           </el-date-picker>
         </el-col>
       </el-row>
@@ -71,6 +73,7 @@
       :data="tableData"
       style="width: 100%"
       v-if="status"
+      size="mini"
       >
       <el-table-column
         prop="d1"
@@ -104,10 +107,10 @@
       </el-table-column>
     </el-table>
     <!-- <div class="line"></div> -->
-    <el-form ref="form" :model="form" label-width="80px" size="small" style="margin-top:20px">
+    <el-form ref="form" :model="form" label-width="80px" size="mini" style="margin-top:20px">
       <el-form-item label="内容搜索" >
         <el-row  >
-          <el-col :span="9">
+          <el-col :span="9" style="margin-right:10px">
             <el-date-picker
               v-model="form.infor2"
               type="datetimerange"
@@ -115,6 +118,7 @@
               range-separator="至"
               start-placeholder="开始日期"
               end-placeholder="结束日期"
+              style="width:100%"
               >
             </el-date-picker>
           </el-col>
@@ -138,7 +142,8 @@
       :data="tableData2"
       style="width: 100%"
       v-if="status"
-      border>
+      border
+      size="mini">
       <el-table-column
         prop="name"
         label="日期"

@@ -2,12 +2,12 @@
 <div class="content">
     <h1>FBA订单</h1>
     <div class="line"></div>
-    <div style="margin-bottom:5px">
+    <div style="margin-bottom:5px" >
         <el-select 
           v-model="value" 
           placeholder="选择员工"
           v-on:change="change(value)"
-          size="small">
+          size="mini">
           <el-option
               v-for ="item in form.company"
               :key="item.value"
@@ -19,7 +19,7 @@
           v-model="value" 
           placeholder="选择国家"
           v-on:change="change(value)"
-          size="small">
+          size="mini">
           <el-option
               v-for ="item in form.company"
               :key="item.value"
@@ -31,7 +31,7 @@
           v-model="value" 
           placeholder="选择店铺"
           v-on:change="change(value)"
-          size="small">
+          size="mini">
           <el-option
               v-for ="item in form.company"
               :key="item.value"
@@ -43,18 +43,18 @@
     <!-- <div class="select-employees" style="margin-bottom:5px">
         <el-row :gutter="10">
             <el-col :span="24">
-                <el-select v-model="employeesValue" placeholder="请选择员工" size="small">
+                <el-select v-model="employeesValue" placeholder="请选择员工" size="mini">
                     <el-option v-for="item in employeesOptions" :key="item.value" :label="item.label" :value="item.value">
                     </el-option>
                 </el-select>
             </el-col>
         </el-row>
     </div> -->
-    <div class="search clear" style="margin-bottom:5px">
+    <div class="search clear" style="margin-bottom:5px;margin-top:0">
       <el-row >
-        <el-col :span="13">
+        <!-- <el-col :span="13"> -->
           <div class="search-radio left" style="margin-right:20px">
-              <el-radio-group v-model="radio" size="small">
+              <el-radio-group v-model="radio" size="mini">
                   <el-radio :label="1" border>订单ID</el-radio>
                   <el-radio :label="2" border>订单号</el-radio>
                   <el-radio :label="3" border>产品SKU</el-radio>
@@ -63,33 +63,33 @@
                   <el-radio :label="6" border>国际追踪号</el-radio>
               </el-radio-group>
           </div>
-        </el-col>
-        <el-col :span="8">
-          <el-input v-model="input" placeholder="订单号、产品SKU" size="small"></el-input>
-          <el-button type="primary" size="small" class="search-btn">搜索</el-button>
-        </el-col>
+        <!-- </el-col> -->
+        <!-- <el-col :span="8"> -->
+          <el-input v-model="input" style="margin-right:20px;margin-right:0" placeholder="订单号、产品SKU" size="mini"></el-input>
+          <el-button type="primary" style="margin-left:5px" size="mini" class="search-btn">搜索</el-button>
+        <!-- </el-col> -->
       </el-row>
         
         <!-- <input type="text" class="search-input" placeholder="订单号、产品SKU"/> --> 
     </div>
-    <div class="screening clear">
-        <div class="select-screening">
-            <el-select v-model="orderValue" placeholder="订单状态" size="small">
+    <div class="screening clear" style="margin-top:5px">
+        <!-- <div class="select-screening"> -->
+            <el-select v-model="orderValue" placeholder="订单状态" size="mini">
                 <el-option v-for="item in orderOptions" :key="item.value" :label="item.label" :value="item.value">
                 </el-option>
             </el-select>
-        </div>
-        <div class="screening-block">
-            <el-date-picker v-model="timeValue" type="datetimerange" range-separator="至" start-placeholder="起始日期" end-placeholder="终止日期" size="small">
+        <!-- </div> -->
+        <!-- <div class="screening-block"> -->
+            <el-date-picker v-model="timeValue" type="datetimerange" range-separator="至" start-placeholder="起始日期" end-placeholder="终止日期" size="mini">
             </el-date-picker>
-        </div>
-        <el-button type="primary" size="small" class="search-btn">查询</el-button>
-        <el-button type="primary" size="small" class="search-btn">重置</el-button>
+        <!-- </div> -->
+        <el-button type="primary" size="mini" class="search-btn">查询</el-button>
+        <el-button type="primary" size="mini" class="search-btn" style="margin-left:5px">重置</el-button>
     </div>
     <div class="line" style="margin-bottom:5px"></div>
     <div class="search-result oh" style="margin-bottom:5px;margin-top:5px">
         <p class="search-result-text">符合条件的订单共有<span> 6 </span>个</p>
-        <el-button type="primary" size="small" class="search-btn right">同步订单</el-button>
+        <el-button type="primary" size="mini" class="search-btn right">同步订单</el-button>
     </div>
     <div class="table">
         <el-table 
@@ -97,6 +97,7 @@
             border 
             style="width: 100%;margin-bottom:20px" 
             :default-sort = "{prop: 'right', order: 'descending'}"
+            size="mini"
             >
             <el-table-column prop="name" label="订单ID/订单号" width="220px">
                 <template slot-scope="scope">
@@ -129,7 +130,7 @@
             </el-table-column>
             <el-table-column fixed="right" label="操作" width="65">
                 <template slot-scope="scope">
-                    <el-button type="primary" icon="el-icon-edit" @click="user_edit" size="small"></el-button>
+                    <el-button type="primary" icon="el-icon-edit" @click="user_edit" size="mini"></el-button>
                 </template>
             </el-table-column>
         </el-table>
@@ -478,7 +479,7 @@
     }
 
     .table{
-        margin-top:10px;
+        /*margin-top:10px;*/
     }
 
     .address-title{

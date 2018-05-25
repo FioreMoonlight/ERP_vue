@@ -26,7 +26,7 @@ html {
   padding:5px 0px;
   float:left;
   margin-right: 20px;
-  margin-top: 5px;
+  /*margin-top: 5px;*/
 }
 .search-result-text span{
     color:#F56C6C;
