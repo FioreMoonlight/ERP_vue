@@ -85,11 +85,7 @@ const menuList = [
   //     },
   //   ]
   // },
-  {
-    "routerName": "G_company_list",
-    "name": "公司管理",
-    "icon": "",
-  },
+  
   {
     "routerName": "2",
     "name": "商品管理",
@@ -210,10 +206,10 @@ const menuList = [
         "routerName": "C_staff",
         "name": "子账户管理"
       },
-      {
-        "routerName": "Cd_User_edit",
-        "name": "个人信息",
-      },
+      // {
+      //   "routerName": "Cd_User_edit",
+      //   "name": "个人信息",
+      // },
     ]
   },
   {
@@ -225,6 +221,11 @@ const menuList = [
       //   "routerName": "Cd_User_edit2",
       //   "name": "店铺设置",
       // },
+      {
+        "routerName": "G_company_list",
+        "name": "公司管理",
+        "icon": "",
+      },
       {
         "routerName": "Cd_User_edit",
         "name": "个人信息",

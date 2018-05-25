@@ -2,6 +2,25 @@
     <div class="content">
         <el-tabs v-model="activeName" type="card">
             <el-tab-pane label="费用统计" name="first">
+              <div style="margin-bottom:5px">
+                <el-select v-model="value1" placeholder="选择员工" size="mini">
+                   <el-option
+                     v-for="item in options1"
+                     :key="item.value"
+                     :label="item.label"
+                     :value="item.value">
+                   </el-option>
+                 </el-select>
+                <el-select v-model="value1" placeholder="选择店铺" size="mini">
+                   <el-option
+                     v-for="item in options1"
+                     :key="item.value"
+                     :label="item.label"
+                     :value="item.value">
+                   </el-option>
+                 </el-select>
+              </div>
+
                 <div class="header" style="margin-bottom:10px">
                     <el-date-picker v-model="value" type="datetimerange" range-separator="至" start-placeholder="开始日期" end-placeholder="结束日期" size="mini"></el-date-picker>
                     <el-button type="primary" size="mini" style="margin-left:50px">查询</el-button>
@@ -82,6 +101,24 @@
                 </div>
             </el-tab-pane>
             <el-tab-pane label="物流费用明细" name="second">
+              <div style="margin-bottom:5px">
+                <el-select v-model="value1" placeholder="选择员工" size="mini">
+                   <el-option
+                     v-for="item in options1"
+                     :key="item.value"
+                     :label="item.label"
+                     :value="item.value">
+                   </el-option>
+                 </el-select>
+                <el-select v-model="value1" placeholder="选择店铺" size="mini">
+                   <el-option
+                     v-for="item in options1"
+                     :key="item.value"
+                     :label="item.label"
+                     :value="item.value">
+                   </el-option>
+                 </el-select>
+              </div>
                 <div class="header" style="margin-bottom:10px">
                     <el-date-picker v-model="value" type="datetimerange" range-separator="至" start-placeholder="开始日期" end-placeholder="结束日期" size="mini"></el-date-picker>
                     <el-button type="primary" size="mini" style="margin-left:50px">查询</el-button>
@@ -166,6 +203,24 @@
                 </div>
             </el-tab-pane>
             <el-tab-pane label="平台费用明细" name="third">
+              <div style="margin-bottom:5px">
+                <el-select v-model="value1" placeholder="选择员工" size="mini">
+                   <el-option
+                     v-for="item in options1"
+                     :key="item.value"
+                     :label="item.label"
+                     :value="item.value">
+                   </el-option>
+                 </el-select>
+                <el-select v-model="value1" placeholder="选择店铺" size="mini">
+                   <el-option
+                     v-for="item in options1"
+                     :key="item.value"
+                     :label="item.label"
+                     :value="item.value">
+                   </el-option>
+                 </el-select>
+              </div>
                 <div class="header" style="margin-bottom:10px">
                     <el-date-picker v-model="value" type="datetimerange" range-separator="至" start-placeholder="开始日期" end-placeholder="结束日期" size="mini"></el-date-picker>
                     <el-button type="primary" size="mini" style="margin-left:50px">查询</el-button>

@@ -5,6 +5,30 @@
     <div style="margin-bottom:5px">
         <el-select 
           v-model="value" 
+          placeholder="选择员工"
+          v-on:change="change(value)"
+          size="small">
+          <el-option
+              v-for ="item in form.company"
+              :key="item.value"
+              :label="item.label"
+              :value="item.value">
+          </el-option>
+        </el-select>
+        <el-select 
+          v-model="value" 
+          placeholder="选择国家"
+          v-on:change="change(value)"
+          size="small">
+          <el-option
+              v-for ="item in form.company"
+              :key="item.value"
+              :label="item.label"
+              :value="item.value">
+          </el-option>
+        </el-select>
+        <el-select 
+          v-model="value" 
           placeholder="选择店铺"
           v-on:change="change(value)"
           size="small">

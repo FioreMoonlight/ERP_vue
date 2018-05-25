@@ -7,14 +7,14 @@
       <el-tab-pane label="折线图" name="1"></el-tab-pane>
     </el-tabs>
     <div class="demo-input-size" >
-      <el-select v-model="value" placeholder="选择员工">
+      <!-- <el-select v-model="value" placeholder="选择员工">
         <el-option
           v-for="item in options"
           :key="item.value"
           :label="item.label"
           :value="item.value">
         </el-option>
-      </el-select>
+      </el-select> -->
       <el-select v-model="value" placeholder="选择店铺">
         <el-option
           v-for="item in options"

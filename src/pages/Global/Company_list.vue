@@ -20,6 +20,13 @@
     <el-table-column
       fixed
       prop="name"
+      label="ID"
+      sortable
+      width="130"
+      >
+    </el-table-column>
+    <el-table-column
+      prop="name"
       label="公司名"
       sortable
       width="130"

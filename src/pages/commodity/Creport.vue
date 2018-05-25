@@ -225,11 +225,11 @@
                         <el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value"></el-option>
                     </el-select>
                 </el-col>
-                <el-col :span="12">
+                <!-- <el-col :span="12">
                     <span class="dialog-left">报账类型</span>
                     <el-radio v-model="radio" label="1">贷款</el-radio>
                     <el-radio v-model="radio" label="2">押金</el-radio>
-                </el-col>
+                </el-col> -->
             </el-row>
             <el-row class="dialog-item">
                 <el-col :span="12">
@@ -260,8 +260,8 @@
                 </el-col>
                 <el-col :span="12">
                     <span style="margin-right:25px">是否备注姓名</span>
-                    <el-radio v-model="radio" label="1">贷款</el-radio>
-                    <el-radio v-model="radio" label="2">押金</el-radio>
+                    <el-radio v-model="radio" label="1">是</el-radio>
+                    <el-radio v-model="radio" label="2">否</el-radio>
                 </el-col>
             </el-row>
             <el-row class="dialog-item">
