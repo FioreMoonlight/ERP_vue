@@ -55,6 +55,7 @@ const Cd_User_edit3 = r => require.ensure([], () => r(require('../pages/commodit
 //admin
 const Cd_Logistics = r => require.ensure([], () => r(require('../pages/commodity/Logistics')), 'Cd_Logistics');
 const Cd_product_list6 = r => require.ensure([], () => r(require('../pages/commodity/Product_list6')), 'Cd_product_list6');
+const Cd_product_list_admin = r => require.ensure([], () => r(require('../pages/commodity/Product_list_admin')), 'Cd_product_list_admin');
 const G_user_list1 = r => require.ensure([], () => r(require('../pages/Global/User_list1')), 'G_user_list1');
 const G_user_list2 = r => require.ensure([], () => r(require('../pages/Global/User_list2')), 'G_user_list2');
 const G_company_list2 = r => require.ensure([], () => r(require('../pages/Global/Company_list2')), 'G_company_list2');

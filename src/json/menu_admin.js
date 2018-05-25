@@ -13,7 +13,7 @@ const menuList = [
         "name": "员工管理"
       },
       {
-        "routerName": "Cd_product_list",
+        "routerName": "Cd_product_list_admin",
         "name": "商品管理"
       },
       {
