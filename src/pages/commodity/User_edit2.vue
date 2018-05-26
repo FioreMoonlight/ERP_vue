@@ -10,7 +10,7 @@
   <h1 >店铺设置</h1>
   <div class="line"></div>
 
-  <el-form ref="form" :model="infor" label-width="80px">
+  <el-form ref="form" :model="infor" label-width="80px" size="mini">
     <el-form-item label="品牌名称">
       <el-input v-model="infor.name"></el-input>
     </el-form-item>
@@ -24,7 +24,7 @@
       <el-input v-model="infor.tel"></el-input>
     </el-form-item>
     <el-form-item>
-      <el-button type="primary" @click="onSubmit">提交</el-button>
+      <el-button type="primary" @click="onSubmit" class="right">提交</el-button>
     </el-form-item>
   </el-form>
 </div>

@@ -145,11 +145,11 @@ const menuList = [
     "icon": "",
     "list1": [
       {
-        "routerName": "Cd_order_list",
+        "routerName": "Cd_order_list_boss",
         "name": "FBM订单",
       },
       {
-        "routerName": "Cd_order_list2",
+        "routerName": "Cd_order_list2_boss",
         "name": "FBA订单",
       }
     ]
@@ -183,11 +183,11 @@ const menuList = [
         "name": "业绩报表",
         "list2": [
           {
-            "routerName": "Cd_Preport",
+            "routerName": "Cd_Preport_boss",
             "name": "店铺业绩",
           },
           {
-            "routerName": "Cd_Preport2",
+            "routerName": "Cd_Preport2_boss",
             "name": "新增产品",
           }
         ],

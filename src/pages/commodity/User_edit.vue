@@ -10,7 +10,7 @@
   <h1 >个人信息</h1>
   <div class="line"></div>
 
-  <el-form ref="form" :model="infor" label-width="80px">
+  <el-form ref="form" :model="infor" label-width="80px" size="mini">
     <el-form-item label="姓名">
       <el-input v-model="infor.name"></el-input>
     </el-form-item>

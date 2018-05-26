@@ -42,12 +42,16 @@ const Cd_product_edit = r => require.ensure([], () => r(require('../pages/commod
 const Cd_product_add = r => require.ensure([], () => r(require('../pages/commodity/Product_add')), 'Cd_product_add');
 const Cd_order_list = r => require.ensure([], () => r(require('../pages/commodity/Order_list')), 'Cd_order_list');
 const Cd_order_list2 = r => require.ensure([], () => r(require('../pages/commodity/Order_list2')), 'Cd_order_list2');
+const Cd_order_list_boss = r => require.ensure([], () => r(require('../pages/commodity/Order_list_boss')), 'Cd_order_list_boss');
+const Cd_order_list2_boss = r => require.ensure([], () => r(require('../pages/commodity/Order_list2_boss')), 'Cd_order_list2_boss');
 const Cd_order_edit = r => require.ensure([], () => r(require('../pages/commodity/Order_edit')), 'Cd_order_edit');
 const Cd_order_add = r => require.ensure([], () => r(require('../pages/commodity/Order_add')), 'Cd_order_add');
 const Cd_Creport = r => require.ensure([], () => r(require('../pages/commodity/Creport')), 'Cd_Creport');
 const Cd_Creport2 = r => require.ensure([], () => r(require('../pages/commodity/Creport2')), 'Cd_Creport2');
 const Cd_Preport = r => require.ensure([], () => r(require('../pages/commodity/Preport')), 'Cd_Preport');
 const Cd_Preport2 = r => require.ensure([], () => r(require('../pages/commodity/Preport2')), 'Cd_Preport2');
+const Cd_Preport_boss = r => require.ensure([], () => r(require('../pages/commodity/Preport_boss')), 'Cd_Preport_boss');
+const Cd_Preport2_boss = r => require.ensure([], () => r(require('../pages/commodity/Preport2_boss')), 'Cd_Preport2_boss');
 const Cd_User_edit = r => require.ensure([], () => r(require('../pages/commodity/User_edit')), 'Cd_User_edit');
 const Cd_User_edit2 = r => require.ensure([], () => r(require('../pages/commodity/User_edit2')), 'Cd_User_edit2');
 const Cd_User_edit3 = r => require.ensure([], () => r(require('../pages/commodity/User_edit3')), 'Cd_User_edit3');
@@ -157,6 +161,12 @@ export default new Router({
                    path: 'Cd_order_list2', 
                    component: Cd_order_list2, 
                 },{
+                   path: 'Cd_order_list_boss', 
+                   component: Cd_order_list_boss, 
+                },{
+                   path: 'Cd_order_list2_boss', 
+                   component: Cd_order_list2_boss, 
+                },{
                    path: 'Cd_order_edit', 
                    component: Cd_order_edit, 
                 },{
@@ -174,6 +184,12 @@ export default new Router({
                 },{
                    path: 'Cd_Preport2', 
                    component: Cd_Preport2, 
+                },{
+                   path: 'Cd_Preport_boss', 
+                   component: Cd_Preport_boss, 
+                },{
+                   path: 'Cd_Preport2_boss', 
+                   component: Cd_Preport2_boss, 
                 },{
                    path: 'Cd_User_edit', 
                    component: Cd_User_edit, 
