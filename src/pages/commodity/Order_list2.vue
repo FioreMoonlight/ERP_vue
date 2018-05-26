@@ -3,7 +3,7 @@
     <h1>FBA订单</h1>
     <div class="line"></div>
     <div style="margin-bottom:5px" >
-        <el-select 
+        <!-- <el-select 
           v-model="value" 
           placeholder="选择员工"
           v-on:change="change(value)"
@@ -14,7 +14,7 @@
               :label="item.label"
               :value="item.value">
           </el-option>
-        </el-select>
+        </el-select> -->
         <el-select 
           v-model="value" 
           placeholder="选择国家"

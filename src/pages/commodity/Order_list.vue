@@ -5,14 +5,14 @@
   <div class="select-box">
     <el-row :gutter="10" style="margin-bottom:5px">
       <!-- <el-col :span="6"> -->
-        <el-select v-model="value1" placeholder="选择员工" size="mini">
+        <!-- <el-select v-model="value1" placeholder="选择员工" size="mini">
            <el-option
              v-for="item in options1"
              :key="item.value"
              :label="item.label"
              :value="item.value">
            </el-option>
-         </el-select>
+         </el-select> -->
       <!-- </el-col> -->
       <!-- <el-col :span="6"> -->
         <el-select v-model="value2" placeholder="选择国家" size="mini">
