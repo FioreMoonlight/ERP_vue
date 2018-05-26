@@ -1,8 +1,14 @@
-
 <template>
 <div class="content">
-  <h1>待发布产品</h1>
-  <div class="line" v-show="ifboos"></div>
+  <h1 style="margin-bottom:20px">待发布产品</h1>
+  <el-tabs v-model="activeName" type="card" >
+    <el-tab-pane label="待发布(2)" name="first"></el-tab-pane>
+    <el-tab-pane label="翻译中(0)" name="second"></el-tab-pane>
+    <el-tab-pane label="发布中(0)" name="third"></el-tab-pane>
+    <el-tab-pane label="发布失败(0)" name="fourth"></el-tab-pane>
+    <el-tab-pane label="发布成功(1295)" name="fourth"></el-tab-pane>
+  </el-tabs>
+  <!-- <div class="line" v-show="ifboos"></div> -->
   <el-form ref="form" :model="form" label-width="80px" size="mini">
     <el-form-item label="公司" v-show="ifboos">
       <el-select 
@@ -17,7 +23,7 @@
         </el-option>
       </el-select>
     </el-form-item>
-    <div class="line"></div>
+    <!-- <div class="line"></div> -->
     <el-form-item label="店铺" style="margin-bottom:5px">
       <el-select 
         v-model="value" 

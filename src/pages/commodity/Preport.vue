@@ -59,7 +59,7 @@
           </el-checkbox-group>
         </el-col>
       </el-row>
-      <el-row style="margin-bottom:10px">
+      <!-- <el-row style="margin-bottom:10px">
         <el-col :span="24">
           <span class="left search-result-text">店铺账号：</span>
           
@@ -67,7 +67,7 @@
               <el-checkbox v-for="city in Option3" :label="city" :key="city">{{city}}</el-checkbox>
           </el-checkbox-group>
         </el-col>
-      </el-row>
+      </el-row> -->
     </div>
     <div class="line" v-show="status"></div>
     <el-table
