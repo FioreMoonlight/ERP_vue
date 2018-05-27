@@ -60,7 +60,7 @@
               this.$http.post(this.api.user_infor+'('+res.user.id+')',{
                 user_token:res.token
               }).then((res)=>{
-                // console.log(res)
+                console.log(res)
                 if(res.value.status){
                   localStorage.status = res.value.status;
                   
@@ -101,11 +101,10 @@
                         path:'/main/Message'
                       })
                     }
-                    
-
-                    
-                    
-                    
+                  })
+                }else if(res.value.status == "boss"){
+                  router.push({
+                    path:'/main/Cd_product_list'
                   })
                 }else{
                   router.push({

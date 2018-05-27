@@ -1,32 +1,25 @@
-<!--
-**************************************
-*   名称：一个demo
-*   作用：展示如何把页面嵌入框架
-*   作者：
-**************************************
--->
 <template>
 <div class="content">
   <h1 >个人信息</h1>
   <div class="line"></div>
 
   <el-form ref="form" :model="infor" label-width="80px" size="mini">
-    <el-form-item label="姓名">
+    <el-form-item label="称呼">
       <el-input v-model="infor.name"></el-input>
     </el-form-item>
     <el-form-item label="身份证号">
-      <el-input v-model="infor.num"></el-input>
+      <el-input v-model="infor.idcardnum"></el-input>
     </el-form-item>
     <el-form-item label="用户名">
-      <el-input v-model="infor.tel"></el-input>
+      <el-input v-model="infor.username"></el-input>
     </el-form-item>
     <el-form-item label="QQ">
-      <el-input v-model="infor.tel"></el-input>
+      <el-input v-model="infor.qq"></el-input>
     </el-form-item>
     <el-form-item label="邮箱">
-      <el-input v-model="infor.tel"></el-input>
+      <el-input v-model="infor.email"></el-input>
     </el-form-item>
-    <el-form-item label="手机号">
+    <el-form-item label="电话">
       <el-input v-model="infor.tel"></el-input>
     </el-form-item>
     <!-- <el-form-item label="账号">
@@ -47,19 +40,31 @@
     export default {
         data() {
           return {
-            infor: {}
+            infor: {
+              name:'',
+              idcardnum:'',
+              username:'',
+              qq:'',
+              email:'',
+              tel:''
+            }
           }
         },
         methods: {
           getinfor(){
-            var ss = localStorage.getItem("token")
-            this.$http.get("http://39.106.9.139/apis/v1805/user/list_info?token="+ss).
-                then(
-                    res =>{
-                        // console.log(res.data);
-                        this.infor = res.data.infos;
-                    }
-                )
+            var tk = localStorage.getItem("token");
+            var uid = localStorage.getItem("uid");
+            this.$http.post(this.api.user_infor+'('+uid+')',{
+              user_token:tk
+            }).then((res)=>{
+              // console.log(res);
+              this.infor.name = res.value.name;
+              this.infor.idcardnum = res.value.idcardnum;
+              this.infor.username = res.value.username;
+              this.infor.qq = res.value.qq;
+              this.infor.email = res.value.email;
+              this.infor.tel = res.value.tel;
+            }) 
           },
           onSubmit() {
             var ss = localStorage.getItem("token")
