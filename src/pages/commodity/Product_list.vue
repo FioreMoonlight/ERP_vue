@@ -560,67 +560,77 @@
               }
             }
           },
-          getinfor(){
-            var tk = localStorage.getItem("token");
-            var uid = localStorage.getItem("uid");
+          // getinfor(){
+          //   var tk = localStorage.getItem("token");
+          //   var uid = localStorage.getItem("uid");
 
-            if(localStorage.getItem("status") == "staff"){
-              this.$http.post(this.api.link_list_company_staff_to_user,{
-                user_token:tk,
-                user_query:"user_id=='"+uid+"'"
-              }).then((res)=>{
-                // console.log(res)
-                //获取员工用户的对应公司id
-                this.cid = res.values[0].company_id;
-                //获取员工用户的对应公司的对应员工id
-                this.staffid = res.values[0].staff_id;
-                //列出公司里的产品
-                this.$http.post('/restful/list/company.'+this.cid+'/product',{
-                  // user_token:tk,
-                  user_query:"user_id=='"+uid+"'"
-                }).then((res)=>{
-                  // console.log(res);
-                  this.data = res.values;
-                  this.data2 = this.data.concat(); 
-                  this.totalItems = res.values.length;
-                })
-              })
-            }else{
-              this.ifboos = true;
-              this.$http.post(this.api.user_company_list,{
-                user_token:tk,
-                user_query:"user_id=='"+uid+"'"
-              }).then((res)=>{
-                // console.log(res);
-                if(res.values.length > 0){
-                  for(var i = 0;i < res.values.length;i++){
-                    this.form.company.push({
-                      "value":res.values[i].company_id,
-                      "label":res.values[i].name
-                    });
-                  }
-                  this.value = res.values[0].company_id;//下拉框显示公司名字
-                  this.cid = res.values[0].company_id;//把当前公司id
-                  // console.log(this.cid)
-                  this.staffid = 1;//老板的员工id都是1?
-                  //列出公司里的产品
-                  this.$http.post('/restful/list/company.'+this.cid+'/product',{
-                    // user_token:tk,
+          //   if(localStorage.getItem("status") == "staff"){
+          //     this.$http.post(this.api.link_list_company_staff_to_user,{
+          //       user_token:tk,
+          //       user_query:"user_id=='"+uid+"'"
+          //     }).then((res)=>{
+          //       // console.log(res)
+          //       //获取员工用户的对应公司id
+          //       this.cid = res.values[0].company_id;
+          //       //获取员工用户的对应公司的对应员工id
+          //       this.staffid = res.values[0].staff_id;
+          //       //列出公司里的产品
+          //       this.$http.post('/restful/list/company.'+this.cid+'/product',{
+          //         // user_token:tk,
+          //         user_query:"user_id=='"+uid+"'"
+          //       }).then((res)=>{
+          //         // console.log(res);
+          //         this.data = res.values;
+          //         this.data2 = this.data.concat(); 
+          //         this.totalItems = res.values.length;
+          //       })
+          //     })
+          //   }else{
+          //     this.ifboos = true;
+          //     this.$http.post(this.api.user_company_list,{
+          //       user_token:tk,
+          //       user_query:"user_id=='"+uid+"'"
+          //     }).then((res)=>{
+          //       // console.log(res);
+          //       if(res.values.length > 0){
+          //         for(var i = 0;i < res.values.length;i++){
+          //           this.form.company.push({
+          //             "value":res.values[i].company_id,
+          //             "label":res.values[i].name
+          //           });
+          //         }
+          //         this.value = res.values[0].company_id;//下拉框显示公司名字
+          //         this.cid = res.values[0].company_id;//把当前公司id
+          //         // console.log(this.cid)
+          //         this.staffid = 1;//老板的员工id都是1?
+          //         //列出公司里的产品
+          //         this.$http.post('/restful/list/company.'+this.cid+'/product',{
+          //           // user_token:tk,
 
-                  }).then((res)=>{
-                    // console.log(res);
-                    this.data = res.values;
-                    this.data2 = this.data.concat(); 
-                    this.totalItems = res.values.length;
-                  })
-                }
-              })
-            }
+          //         }).then((res)=>{
+          //           // console.log(res);
+          //           this.data = res.values;
+          //           this.data2 = this.data.concat(); 
+          //           this.totalItems = res.values.length;
+          //         })
+          //       }
+          //     })
+          //   }
             
+          // }
+          getProductInfo(){
+                this.$http.post(`/restful/list/company_company_${localStorage.getItem("companyId")}/product`,
+                {
+                    user_token:localStorage.getItem("token")
+                }).then(res => {
+                    console.log(res);
+                    console.log(JSON.parse(res.values[14].productInfo));
+                    console.log(JSON.parse(res.values[14].keyWord));
+                })
           }
         },
         mounted(){
-          this.getinfor();
+          this.getProductInfo();
         },
         watch: {  
            schfilter: function(val, oldVal){  

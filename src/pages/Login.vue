@@ -75,6 +75,7 @@
                     console.log(res);
                     if(res.values.length > 0){
                       this.setCookie("companyId",res.values[0].company_id,1/24);
+                      localStorage.companyId = res.values[0].company_id;
                       this.setCookie("staffId",res.values[0].staff_id,1/24);
                       //判断是否已经绑定
                       this.$http.post(this.api.link_list_user_to_company_staff,{

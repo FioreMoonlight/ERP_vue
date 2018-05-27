@@ -7,7 +7,7 @@
           <el-form ref="form" :model="form" label-width="80px">
             <div class="oh">
               <el-button type="primary" class="right ml10">下一个</el-button>
-              <el-button type="success" class="right">保存至待同步</el-button>
+              <el-button type="success" class="right" @click="addProducts">保存至待同步</el-button>
               <el-button type="primary" class="right">一键从英文翻译</el-button>
               <el-button type="primary" class="right">一键从中文翻译</el-button>
             </div>
@@ -38,11 +38,11 @@
             </el-form-item>
             <div class="line"></div>
             <el-form-item label="标题">
-              <el-input  placeholder="标题长度不超过200个字符" maxlength="200" v-model="form.detail.inf1">
+              <el-input  placeholder="标题长度不超过200个字符" maxlength="200" v-model="form.title">
               </el-input>
             </el-form-item>
             <el-form-item label="分类">
-              <el-select v-model="form.detail.inf2" placeholder="请选择">
+              <el-select v-model="form.classification" placeholder="请选择">
                 <el-option
                   v-for="item in form.options"
                   :key="item.value"
@@ -52,26 +52,26 @@
               </el-select>
             </el-form-item>
             <el-form-item label="五大亮点">
-              <el-input placeholder="五大亮点长度现已支持500个字符" maxlength="500" v-model="form.detail.inf3" class="mt10"></el-input>
-              <el-input placeholder="五大亮点长度现已支持500个字符" maxlength="500" v-model="form.detail.inf3" class="mt10"></el-input>
-              <el-input placeholder="五大亮点长度现已支持500个字符" maxlength="500" v-model="form.detail.inf3" class="mt10"></el-input>
-              <el-input placeholder="五大亮点长度现已支持500个字符" maxlength="500" v-model="form.detail.inf3" class="mt10"></el-input>
-              <el-input placeholder="五大亮点长度现已支持500个字符" maxlength="500" v-model="form.detail.inf3"></el-input>
+              <el-input placeholder="五大亮点长度现已支持500个字符" maxlength="500" v-model="form.brightSpot[0]" class="mt10"></el-input>
+              <el-input placeholder="五大亮点长度现已支持500个字符" maxlength="500" v-model="form.brightSpot[1]" class="mt10"></el-input>
+              <el-input placeholder="五大亮点长度现已支持500个字符" maxlength="500" v-model="form.brightSpot[2]" class="mt10"></el-input>
+              <el-input placeholder="五大亮点长度现已支持500个字符" maxlength="500" v-model="form.brightSpot[3]" class="mt10"></el-input>
+              <el-input placeholder="五大亮点长度现已支持500个字符" maxlength="500" v-model="form.brightSpot[4]"></el-input>
               <span style="color:#F56C6C">5个亮点不需要全部填写,可根据需求填写</span>
             </el-form-item>
             <el-form-item label="关键词">
-              <el-input placeholder="请输入关键词" v-model="form.detail.inf4" class="mt10"></el-input>
-              <el-input placeholder="请输入关键词" v-model="form.detail.inf4" class="mt10"></el-input>
-              <el-input placeholder="请输入关键词" v-model="form.detail.inf4" class="mt10"></el-input>
-              <el-input placeholder="请输入关键词" v-model="form.detail.inf4" class="mt10"></el-input>
-              <el-input placeholder="请输入关键词" v-model="form.detail.inf4"></el-input>
+              <el-input placeholder="请输入关键词" v-model="form.keyWord[0]" class="mt10"></el-input>
+              <el-input placeholder="请输入关键词" v-model="form.keyWord[1]" class="mt10"></el-input>
+              <el-input placeholder="请输入关键词" v-model="form.keyWord[2]" class="mt10"></el-input>
+              <el-input placeholder="请输入关键词" v-model="form.keyWord[3]" class="mt10"></el-input>
+              <el-input placeholder="请输入关键词" v-model="form.keyWord[4]"></el-input>
             </el-form-item>
             <el-form-item label="描述">
-              <el-input type="textarea" placeholder="请输入描述" v-model="form.detail.inf5">
+              <el-input type="textarea" placeholder="请输入描述" v-model="form.describe">
               </el-input>
             </el-form-item>
             <el-form-item label="状态">
-              <el-select v-model="form.detail.inf6" placeholder="请选择">
+              <el-select v-model="form.detail.status" placeholder="请选择">
                 <el-option
                   v-for="item in form.options2"
                   :key="item.value"
@@ -84,25 +84,25 @@
             <el-form-item label="产品信息">
               <el-row  class="mt10">
                 <el-col :span="11">
-                  <el-input placeholder="品牌名称" v-model="form.infor.input1">
+                  <el-input placeholder="品牌名称" v-model="form.productInfo.brand">
                     <template slot="prepend">品牌名称</template>
                   </el-input>
                 </el-col>
                 <el-col :span="11" :offset="2">
-                  <el-input placeholder="厂商编号" v-model="form.infor.input2">
+                  <el-input placeholder="厂商编号" v-model="form.productInfo.manufacturer">
                     <template slot="prepend">厂商名称</template>
                   </el-input>
                 </el-col>
               </el-row>
-
+     
               <el-row  class="mt10">
                 <el-col :span="11">
-                  <el-input placeholder="内部SKU" v-model="form.infor.input3">
+                  <el-input placeholder="内部SKU" v-model="form.productInfo.fatherSku">
                     <template slot="prepend">父SKU</template>
                   </el-input>
                 </el-col>
                 <el-col :span="11" :offset="2">
-                  <el-input placeholder="请输入内容" v-model="form.infor.input4" class="input-with-select" >
+                  <el-input placeholder="请输入内容" v-model="form.productInfo.ean" class="input-with-select" >
                     <el-select v-model="form.select1" slot="prepend" placeholder="请选择" style="width:120px">
                       <el-option label="EAN" value="1" ></el-option>
                       <el-option label="UPC" value="2"></el-option>
@@ -113,7 +113,7 @@
               
               <el-row  class="mt10">
                 <el-col :span="20">
-                  <el-input placeholder="来源网址" v-model="form.infor.input5">
+                  <el-input placeholder="来源网址" v-model="form.productInfo.sourceWebsite">
                     <template slot="prepend">来源网址</template>
                   </el-input>
                 </el-col>
@@ -126,19 +126,19 @@
               </el-row>
               
               <el-row  class="mt10">
-                <el-input placeholder="备注" v-model="form.infor.input6">
+                <el-input placeholder="备注" v-model="form.productInfo.remarks">
                   <template slot="prepend">备注</template>
                 </el-input>
               </el-row>
 
               <el-row class="">
                 <el-col :span="11" >
-                  <el-input placeholder="0"  v-model="form.infor.input7">
+                  <el-input placeholder="0"  v-model="form.productInfo.stock">
                     <template slot="prepend">库存数量</template>
                   </el-input>
                 </el-col>
                 <el-col :span="11" :offset="2">
-                  <el-input placeholder="1"  v-model="form.infor.input8">
+                  <el-input placeholder="1"  v-model="form.productInfo.preprocessing">
                     <template slot="prepend">预处理时间</template>
                     <template slot="append">天(现货填1)</template>
                   </el-input>
@@ -716,6 +716,8 @@
         tableData1:[],
         form: {
           id:'0000001',
+          title:'', //标题
+          classification:'', //分类
           options: [{
             value: '1',
             label: '鞋子'
@@ -729,6 +731,20 @@
             value: '4',
             label: '裤子'
           }],
+          brightSpot:[], //五大亮点
+          keyWord:[],  //关键词
+          describe:'', //描述
+          status:'',  //状态
+          productInfo:{
+            brand:'',//品牌名称
+            manufacturer:'',//厂商名称
+            fatherSku:'',//父SKU
+            ean:'',//EAN
+            sourceWebsite:'',//来源网址
+            remarks:'',//备注
+            stock:'',//库存
+            preprocessing:'',//预处理         
+          },
           options2: [{
             value: '1',
             label: 'New'
@@ -904,7 +920,25 @@
         this.variantSelectOption = index;
         this.variantTagId = index;
         this.tableData1 = this.variantArr[index].data
+      },
+      //添加方法
+      addProducts(){
+        let params = {
+            title:JSON.stringify(this.form.title),
+            classification :JSON.stringify(this.form.classification),
+            brightSpot:JSON.stringify(this.form.brightSpot),
+            keyWord:JSON.stringify(this.form.keyWord),
+            status:JSON.stringify(this.form.status),
+            productInfo:JSON.stringify(this.form.productInfo)
+        }
+        this.$http.post(`/restful/add/company_company_${localStorage.getItem("companyId")}/product`,
+            params
+        ).then(res => {
+            console.log(res);
+        })
       }
+    },
+    mounted(){
     }
   }
 </script>

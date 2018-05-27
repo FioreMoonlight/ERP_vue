@@ -170,6 +170,7 @@ import Qs from 'qs';
           user_token:tk,
           user_query:"username=='"+this.form.name+"'"
         }).then((res)=>{
+          console.log(res);
           //判断是否存在用户
           if(res.values.length > 0){
 
