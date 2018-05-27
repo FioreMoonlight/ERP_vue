@@ -47,6 +47,7 @@
         },
         methods:{
             change(val){
+                
                 this.companyname = val;
                 var tk = localStorage.getItem("token");
                 var uid = localStorage.getItem("uid");
@@ -116,7 +117,7 @@
                   user_token:tk,
                   user_query:"user_id=='"+uid+"'"
                 }).then((res)=>{
-                  // console.log(res);
+                  console.log(res);
                   //判断用户是否有公司
                   if(res.values.length > 0){
                     for(var i = 0;i < res.values.length;i++){
