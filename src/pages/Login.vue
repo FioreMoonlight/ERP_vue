@@ -19,7 +19,7 @@
             <el-button class="right" type="text" @click="zhuce">注册</el-button>
           </el-form-item>
         </el-form>
-        
+        测试提交
     </div>
 </template>
 
