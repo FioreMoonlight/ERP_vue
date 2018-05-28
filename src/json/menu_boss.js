@@ -222,8 +222,8 @@ const menuList = [
       //   "name": "店铺设置",
       // },
       {
-        "routerName": "G_company_list",
-        "name": "公司管理",
+        "routerName": "G_Company_edit",
+        "name": "公司信息",
         "icon": "",
       },
       {

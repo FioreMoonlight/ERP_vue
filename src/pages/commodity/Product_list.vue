@@ -619,13 +619,22 @@
             
           // }
           getProductInfo(){
+                //列出对应公司的全部产品
+                // this.$http.post(`/restful/list/company_company_${localStorage.getItem("companyId")}/product`,
+                // {
+                //     user_token:localStorage.getItem("token")
+                // }).then(res => {
+                //     console.log(res);
+                // })
+                
+                var uid = localStorage.getItem("uid");
+                //列出该员工上传的产品
                 this.$http.post(`/restful/list/company_company_${localStorage.getItem("companyId")}/product`,
                 {
-                    user_token:localStorage.getItem("token")
+                    user_token:localStorage.getItem("token"),
+                    user_query:"user_id='"+uid+"'"
                 }).then(res => {
                     console.log(res);
-                    console.log(JSON.parse(res.values[14].productInfo));
-                    console.log(JSON.parse(res.values[14].keyWord));
                 })
           }
         },

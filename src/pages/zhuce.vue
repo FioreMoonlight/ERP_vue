@@ -8,21 +8,55 @@
 <template>
   <div class="content">
     <el-form ref="form" :model="form" label-width="80px">
-      <el-form-item label="用户名">
-        <el-input v-model="form.username"></el-input>
+      <el-row>
+        <el-col :span="12">
+          <el-form-item label="用户名">
+            <el-input v-model="form.username"></el-input>
+          </el-form-item>
+        </el-col>
+        <el-col :span="12">
+          <el-form-item label="密码">
+            <el-input v-model="form.password"></el-input>
+          </el-form-item>
+        </el-col>
+      </el-row>
+      <el-row>
+        <el-col :span="12">
+          <el-form-item label="称呼">
+            <el-input v-model="form.name"></el-input>
+          </el-form-item>
+        </el-col>
+        <el-col :span="12">
+          <el-form-item label="身份证号">
+            <el-input v-model="form.idcardnum"></el-input>
+          </el-form-item>
+        </el-col>
+      </el-row>
+      <el-row>
+        <el-col :span="12">
+          <el-form-item label="QQ">
+        <el-input v-model="form.qq"></el-input>
       </el-form-item>
-      <el-form-item label="密码">
-        <el-input v-model="form.password"></el-input>
-      </el-form-item>
-      <el-form-item label="称呼">
-        <el-input v-model="form.name"></el-input>
-      </el-form-item>
-      <el-form-item label="电话">
-        <el-input v-model="form.tel"></el-input>
-      </el-form-item>
-      <el-form-item label="身份证号">
-        <el-input v-model="form.num"></el-input>
-      </el-form-item>
+        </el-col>
+        <el-col :span="12">
+          <el-form-item label="邮箱">
+            <el-input v-model="form.email"></el-input>
+          </el-form-item>
+        </el-col>
+      </el-row>
+      <el-row>
+        <el-col :span="12">
+          <el-form-item label="电话">
+            <el-input v-model="form.tel"></el-input>
+          </el-form-item>
+        </el-col>
+      </el-row>
+      
+      
+      
+      
+      
+      
       <el-form-item label="身份">
         <el-radio v-model="form.status" label="staff" border>我是员工</el-radio>
         <el-radio v-model="form.status" label="boss" border>我是老板</el-radio>
@@ -44,10 +78,13 @@
                 form:{
                   username:"",
                   password:"",
-                  tel:"",
-                  num:"",
-                  name:"",
-                  uid:"",
+                  name:'',
+                  idcardnum:'',
+                  username:'',
+                  qq:'',
+                  email:'',
+                  tel:'',
+                  uid:'',
                   status:'staff'
                 }
             }
@@ -84,7 +121,9 @@
                     user_token:res.token,
                     name:this.form.name,
                     tel:this.form.tel,
-                    idcardnum:this.form.num,
+                    idcardnum:this.form.idcardnum,
+                    qq:this.form.qq,
+                    email:this.form.email,
                     status:this.form.status
                   }).then((res)=>{
                     
@@ -96,9 +135,10 @@
                           path:'/main/Message'
                         })
                       }else{
+                        localStorage.bossc = "no";
                         this.$message.success('注册成功,正在为您跳转');
                         router.push({
-                          path:'/main/Cd_product_list'
+                          path:'/main/Company_add'
                         })
                       }
                     

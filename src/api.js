@@ -10,6 +10,7 @@ const api={
     'company_set_infor':'/restful/set/_company/company',
     // 'company_add_staff':'/restful/set/_company/company',
     'user_company_list':'/restful/list/_account/user_company',
+    'user_company_inforSet':'/restful/set/_account/user_company',
     'company_infor':'/restful/get/_company/company',
     'link_company_staff_to_user':'/restful/add/_linked/company_staff_to_user',
     'link_add_user_to_company_staff':'/restful/add/_linked/user_to_company_staff',

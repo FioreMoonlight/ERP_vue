@@ -23,42 +23,42 @@
           <div slot="header" class="clearfix">
               <span>权限管理</span>
 
-              <el-button style="float: right; padding: 3px 0" type="text">取消关联</el-button>
+              <!-- <el-button style="float: right; padding: 3px 0" type="text">取消关联</el-button> -->
               <!-- <el-button style="float: right; padding: 3px 0;margin-right:20px" type="text">关联账户</el-button> -->
             </div>
-            <div  class="text item">
-              <el-form ref="form" :model="form" label-width="80px"  size="mini">
+            <div  class="text item" v-show="ifclick">
+              <el-form v-show="!ifns" ref="form" :model="form" label-width="80px"  size="mini">
                 <el-form-item label="账户:">
-                  {{this.sf_name}}(zimin123)
+                  {{this.sf_name}}({{this.sf_username}})
                 </el-form-item>
-                <el-form-item label="状态:">
+                <!-- <el-form-item label="状态:">
                   等待账户确认
-                </el-form-item>
+                </el-form-item> -->
                 <div class="line"></div>
                 <el-form-item label="店铺:">
-                  <el-checkbox :indeterminate="isIndeterminate" v-model="checkAll" @change="handleCheckAllChange">全选</el-checkbox>
-                  <div style="margin: 15px 0;"></div>
+                  <!-- <el-checkbox :indeterminate="isIndeterminate" v-model="checkAll" @change="handleCheckAllChange">全选</el-checkbox> -->
+                  <!-- <div style="margin: 15px 0;"></div> -->
                   <el-checkbox-group v-model="checked1" @change="handleCheckedCitiesChange">
                     <el-checkbox v-for="city in Option1" :label="city" :key="city">{{city}}</el-checkbox>
                   </el-checkbox-group>
                 </el-form-item>
                 <el-form-item label="产品:">
-                  <el-checkbox :indeterminate="isIndeterminate" v-model="checkAll" @change="handleCheckAllChange">全选</el-checkbox>
-                  <div style="margin: 15px 0;"></div>
+                  <!-- <el-checkbox :indeterminate="isIndeterminate" v-model="checkAll" @change="handleCheckAllChange">全选</el-checkbox>
+                  <div style="margin: 15px 0;"></div> -->
                   <el-checkbox-group v-model="checked2" @change="handleCheckedCitiesChange">
                     <el-checkbox v-for="city in Option2" :label="city" :key="city">{{city}}</el-checkbox>
                   </el-checkbox-group>
                 </el-form-item>
                 <el-form-item label="订单:">
-                  <el-checkbox :indeterminate="isIndeterminate" v-model="checkAll" @change="handleCheckAllChange">全选</el-checkbox>
-                  <div style="margin: 15px 0;"></div>
+                  <!-- <el-checkbox :indeterminate="isIndeterminate" v-model="checkAll" @change="handleCheckAllChange">全选</el-checkbox>
+                  <div style="margin: 15px 0;"></div> -->
                   <el-checkbox-group v-model="checked3" @change="handleCheckedCitiesChange">
                     <el-checkbox v-for="city in Option3" :label="city" :key="city">{{city}}</el-checkbox>
                   </el-checkbox-group>
                 </el-form-item>
                 <el-form-item label="财务:">
-                  <el-checkbox :indeterminate="isIndeterminate" v-model="checkAll" @change="handleCheckAllChange">全选</el-checkbox>
-                  <div style="margin: 15px 0;"></div>
+                  <!-- <el-checkbox :indeterminate="isIndeterminate" v-model="checkAll" @change="handleCheckAllChange">全选</el-checkbox>
+                  <div style="margin: 15px 0;"></div> -->
                   <el-checkbox-group v-model="checked4" @change="handleCheckedCitiesChange">
                     <el-checkbox v-for="city in Option4" :label="city" :key="city">{{city}}</el-checkbox>
                   </el-checkbox-group>
@@ -67,18 +67,18 @@
                 <!-- <div class="search-result-text">
                     状态: <span>等待账户确认</span>
                 </div> -->
-                <div class="line"></div>
-                <div v-show="ifns">
-                  <div class="line"></div>
-                  <el-form ref="form" :model="form" label-width="110px">
-                    <el-form-item label="绑定用户名">
-                      <el-input v-model="form.name"></el-input>
-                    </el-form-item>
-                    <el-form-item>
-                      <el-button type="primary" @click="onSubmit">提交</el-button>
-                    </el-form-item>
-                  </el-form>
-                </div>
+                <!-- <div class="line"></div> -->
+              <div v-show="ifns">
+                <!-- <div class="line"></div> -->
+                <el-form ref="form" :model="form" label-width="110px">
+                  <el-form-item label="绑定用户名">
+                    <el-input v-model="form.name"></el-input>
+                  </el-form-item>
+                  <el-form-item>
+                    <el-button type="primary" @click="onSubmit">提交</el-button>
+                  </el-form-item>
+                </el-form>
+              </div>
 
             </div>
         </el-card>
@@ -101,9 +101,9 @@ import Qs from 'qs';
     data(){
       return{
         checkAll: false,
-        checked1: ['店铺1', '店铺2'],
-        checked2: ['产品采集'],
-        checked3: ['接收订单'],
+        checked1: ['店铺1', '店铺2', '店铺3', '店铺4'],
+        checked2: ['产品采集', '产品编辑', '产品跟卖', '产品上传','产品同步','产品分享'],
+        checked3: ['接收订单', '处理订单'],
         checked4: ['财务管理'],
         Option1: Option1,
         Option2: Option2,
@@ -123,9 +123,11 @@ import Qs from 'qs';
         },
         defaultExpandKeys: [],//默认展开节点列表
         sf_name:'',
+        sf_username:'',
         staff_id:'',
         suid:'',
-        ifns:false
+        ifns:false,
+        ifclick:false
       }
     },
     props:{
@@ -152,14 +154,16 @@ import Qs from 'qs';
     },    
 
     methods: {
-      handleCheckAllChange(val) {
-        this.checkedCities = val ? cityOptions : [];
-        this.isIndeterminate = false;
-      },
+      // handleCheckAllChange(val) {
+      //   this.checkedCities = val ? cityOptions : [];
+      //   this.isIndeterminate = false;
+      // },
       handleCheckedCitiesChange(value) {
-        let checkedCount = value.length;
-        this.checkAll = checkedCount === this.cities.length;
-        this.isIndeterminate = checkedCount > 0 && checkedCount < this.cities.length;
+        this.$message.error("权限接口尚未完善")
+        return
+        // let checkedCount = value.length;
+        // this.checkAll = checkedCount === this.cities.length;
+        // this.isIndeterminate = checkedCount > 0 && checkedCount < this.cities.length;
       },
       onSubmit() {
         var uid = localStorage.getItem("uid");
@@ -170,32 +174,49 @@ import Qs from 'qs';
           user_token:tk,
           user_query:"username=='"+this.form.name+"'"
         }).then((res)=>{
-          console.log(res);
+          this.suid = res.values[0].id;
           //判断是否存在用户
           if(res.values.length > 0){
-
-            this.suid = res.values[0].id;
-            if(this.staff_id){
-              //往link表里加信息
-              this.$http.post(this.api.link_company_staff_to_user,{
-                user_id:this.suid,
-                company_id:this.cid,
-                staff_id:this.staff_id
+            //判断该账户是不是员工
+            if(res.values[0].status == "staff"){
+              this.$http.post(this.api.link_list_user_to_company_staff,{
+                user_token:tk,
+                user_query:"user_id=='"+res.values[0].id+"'"
               }).then((res)=>{
-                //往信息表里加信息
-                this.$http.post(this.api.message_company_staff_link,{
-                  user_id:this.suid,
-                  company_id:this.cid,
-                  staff_id:this.staff_id,
-                  status:"wait"
-                }).then((res)=>{
-                  // this.ifnsary.push(this.staff_id);
-                  this.form.name = '';
-                })
+                //判断是否已经被绑定
+                if(res.values.length > 0){
+                  this.$message.error("该用户已被其他公司绑定")
+                }else{
+                  
+                  if(this.staff_id){
+                    //往link表里加信息
+                    this.$http.post(this.api.link_company_staff_to_user,{
+                      user_id:this.suid,
+                      company_id:this.cid,
+                      staff_id:this.staff_id
+                    }).then((res)=>{
+                      //往信息表里加信息
+                      this.$http.post(this.api.message_company_staff_link,{
+                        user_id:this.suid,
+                        company_id:this.cid,
+                        staff_id:this.staff_id,
+                        status:"wait"
+                      }).then((res)=>{
+                        // this.ifnsary.push(this.staff_id);
+                        this.$message.success('请求已经发出,等待该账户确认');
+                        this.form.name = '';
+                      })
+                    })
+                  }else{
+                    this.$message.error("请点击要绑定的员工")
+                  }
+                }
               })
+              
             }else{
-              this.$message.error("请点击要绑定的员工")
+                this.$message.error("该用户不是员工")
             }
+            
           }else{
             this.$message.error("该用户不存在");
           }
@@ -211,6 +232,7 @@ import Qs from 'qs';
       },
       handleNodeClick(d,n,s){//点击节点
         // console.log(d)
+        this.ifclick = true;
         d.isEdit = false;//放弃编辑状态
         this.sf_name = d.name;
         this.staff_id = d.id;
@@ -242,22 +264,22 @@ import Qs from 'qs';
           }
         });
       },
-      handleAddTop(){
-        this.setTree.push({
-          id: 0,
-          name: '领导',
-          pid: '',
-          isEdit: false,
-          children: []
-        })
-      },
+      // handleAddTop(){
+      //   this.setTree.push({
+      //     id: 0,
+      //     name: '领导',
+      //     pid: '',
+      //     isEdit: false,
+      //     children: []
+      //   })
+      // },
       handleAdd(s,d,n){//增加节点
         var tk = localStorage.getItem("token");
         var uid = localStorage.getItem("uid");
         
         // console.log(this.setTree);
-        if(n.level >=6){
-          this.$message.error("最多只支持五级！")
+        if(n.level >=2){
+          this.$message.error("目前只支持两级！")
           return false;
         }
         

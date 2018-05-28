@@ -4,7 +4,7 @@
 *   作用：展示如何把页面嵌入框架
 *   作者：
 **************************************
--->
+--> 
 <template>
     <div class="content">
         <el-form ref="form" :model="form" label-width="80px">
@@ -72,7 +72,7 @@
                     user_token:tk,
                     user_query:"user_id=='"+uid+"'"
                   }).then((res)=>{    
-                    console.log(res);
+                    // console.log(res);
                     if(res.values.length > 0){
                       this.setCookie("companyId",res.values[0].company_id,1/24);
                       localStorage.companyId = res.values[0].company_id;
@@ -82,7 +82,7 @@
                         user_token:tk,
                         user_query:"user_id=='"+uid+"'"
                       }).then((res)=>{
-                        // console.log(res);
+                        console.log(res);
                          if(res.values.length > 0){
                           localStorage.staffc = "ok";
                             router.push({
@@ -102,12 +102,28 @@
                         path:'/main/Message'
                       })
                     }
-                    
-
-                    
-                    
+                  })
+                }else if(res.value.status == "boss"){
+                  // var tk = localStorage.getItem("token");
+                  // var uid = localStorage.getItem("uid");
+                  //加载用户公司信息 判断老板用户是否已经创建公司
+                  this.$http.post(this.api.user_company_list,{
+                    user_token:tk,
+                    user_query:"user_id=='"+uid+"'"
+                  }).then((res)=>{
+                    if(res.values.length > 0){
+                      localStorage.bossc = "ok";
+                      router.push({
+                        path:'/main/Cd_product_list'
+                      })
+                    }else{
+                      router.push({
+                        path:'/main/Company_add'
+                      })
+                    }
                     
                   })
+                  
                 }else{
                   router.push({
                     path:'/main/Cd_product_list'
