@@ -4,15 +4,15 @@
 *   作用：展示如何把页面嵌入框架
 *   作者：
 **************************************
--->
+--> 
 <template>
 
 <div class="content">
   <div class="title">
-    <h1 class="left">注册公司</h1>
-    <a href="javascript:history.go(-1)" >
+    <h1 class="left">创建公司</h1>
+    <!-- <a href="javascript:history.go(-1)" >
       <el-button type="text" class="right">返回</el-button>
-    </a>
+    </a> -->
   </div>
 
   <div class="line"></div>
@@ -112,8 +112,12 @@
                   message: '公司添加成功',
                   type: 'success'
                 });
+                // router.push({
+                //   path:'/main/C_staff'
+                // })
+                localStorage.clear();
                 router.push({
-                  path:'/main/C_staff'
+                  path:'/'
                 })
               })
             })

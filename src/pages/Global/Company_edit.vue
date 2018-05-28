@@ -9,7 +9,7 @@
 
 <div class="content">
   <div class="title">
-    <h1 class="left">编辑公司</h1>
+    <h1 class="left">公司信息</h1>
     <a href="javascript:history.go(-1)" >
       <el-button type="text" class="right">返回</el-button>
     </a>
@@ -57,27 +57,73 @@
   </el-form>
 </div>
 </template>
-
+ 
 <script>
     import router from "../../router";
     export default {
         data() {
           return {
             form: {
-              cname: '上海潮梦科技技术有限责任公司',
-              cregmoney:'500',
-              creg_address:'上海',
-              clegalp:'老刘',
-              crange:'软件',
-              cwork_address:'上海 仁德路逸仙77弄 腾讯重创空间7楼',
-              ctel:'18501241617',
-              dialogImageUrl: ''
+              cname: '',
+              cregmoney:'',
+              creg_address:'',
+              clegalp:'',
+              crange:'',
+              cwork_address:'',
+              ctel:'',
+              dialogImageUrl: '',
+              cid:''
             }
           }
         },
         methods: {
+          getInfor(){
+            var uid = localStorage.getItem("uid");
+            var tk = localStorage.getItem("tk");
+            this.$http.post(this.api.user_company_list,{
+              user_token:tk,
+              user_query:"user_id=='"+uid+"'"
+            }).then((res)=>{
+              this.form.cid = res.values[0].id;
+              if(res.values.length > 0){
+                this.form.cname = res.values[0].name;
+                this.form.cregmoney = res.values[0].regmoney;
+                this.form.creg_address = res.values[0].reg_address;
+                this.form.clegalp = res.values[0].legalp;
+                this.form.crange = res.values[0].range;
+                this.form.cwork_address = res.values[0].work_address;
+                this.form.ctel = res.values[0].tel;
+              }else{
+                console.log("该用户没有注册公司");
+                return
+              } 
+            })
+          },
           onSubmit() {
-            console.log('submit!');
+            var uid = localStorage.getItem("uid");
+            var tk = localStorage.getItem("tk");
+            this.$http.post(this.api.user_company_inforSet+"("+this.form.cid+")",{
+              user_token:tk,
+              name:this.form.cname,
+              regmoney:this.form.cregmoney,
+              reg_address:this.form.creg_address,
+              legalp:this.form.clegalp,
+              range:this.form.crange,
+              work_address:this.form.cwork_address, 
+              tel:this.form.ctel 
+            }).then((res)=>{
+            });
+            this.$http.post(this.api.company_set_infor+"("+this.form.cid+")",{
+              user_token:tk,
+              name:this.form.cname,
+              regmoney:this.form.cregmoney,
+              reg_address:this.form.creg_address,
+              legalp:this.form.clegalp,
+              range:this.form.crange,
+              work_address:this.form.cwork_address, 
+              tel:this.form.ctel 
+            }).then((res)=>{
+            })
           },
           handleRemove(file, fileList) {
             console.log(file, fileList);
@@ -86,6 +132,9 @@
             this.form.dialogImageUrl = file.url;
             this.form.dialogVisible = true;
           }
+        },
+        mounted(){
+          this.getInfor();
         }
       }
 </script>

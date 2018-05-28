@@ -45,12 +45,14 @@
     },
     mounted(){
       if(localStorage.getItem("status") == 'boss'){
+        
         if(localStorage.getItem("bossc") == 'ok'){
+          
           this.menuList = menuList_boss;
         }else{
           this.menuList = menuList_boss_u;
         }
-        this.menuList = menuList_boss;
+        
       }else if(localStorage.getItem("status") == 'staff'){
         if(localStorage.getItem("staffc") == 'ok'){
           this.menuList = menuList_staff;

@@ -6,16 +6,16 @@
         </div>
         <div class="table">
             <el-table :data="tableData" :span-method="objectSpanMethod" border style="width: 100%; margin-top: 20px">
-                <el-table-column prop="id" label="店铺名称"></el-table-column>
-                <el-table-column prop="name" label="授权国家"></el-table-column>
-                <el-table-column prop="amount1" label="代理邮箱"></el-table-column>
-                <el-table-column prop="amount2" label="授权时间"></el-table-column>
-                <el-table-column prop="amount3" label="操作">
-                    <template slot-scope="scope">
-                        <el-button type="text" @click="editAuthorization">重新授权</el-button>
-                        <el-button type="text">删除</el-button>       
-                    </template>
-                </el-table-column>
+              <el-table-column prop="id" label="店铺名称"></el-table-column>
+              <el-table-column prop="name" label="授权国家"></el-table-column>
+              <el-table-column prop="amount1" label="代理邮箱"></el-table-column>
+              <el-table-column prop="amount2" label="授权时间"></el-table-column>
+              <el-table-column prop="amount3" label="操作">
+                  <template slot-scope="scope">
+                      <el-button type="text" @click="editAuthorization">重新授权</el-button>
+                      <el-button type="text">删除</el-button>       
+                  </template>
+              </el-table-column>
             </el-table>
         </div>
         <div class="bottom">
