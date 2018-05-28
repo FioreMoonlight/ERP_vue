@@ -19,12 +19,13 @@
             <el-form-item label="产品图片">
               <el-upload
                 class="upload-demo"
-                action="https://jsonplaceholder.typicode.com/posts/"
+                action="http://39.106.9.139/upload"
                 :on-preview="handlePreview"
                 :on-remove="handleRemove"
                 :limit="9"
                 :file-list="fileList"
-                list-type="picture-card">
+                list-type="picture-card"
+                :on-success="uploadSuccess">
                 <i class="el-icon-plus"></i>
                 <!-- <el-button size="small" type="primary">本地图片选取</el-button>
                 <el-button size="small" type="primary">图片空间选取</el-button> -->
@@ -150,14 +151,14 @@
               <el-button type="primary" size="small" @click="open">一键定价</el-button>
             </el-form-item>
             <el-form-item label="审核状态">
-              <el-radio-group v-model="form.radio">
+              <el-radio-group v-model="form.examine">
                 <el-radio label="1" border>通过</el-radio>
                 <el-radio label="2" border>待审核</el-radio>
                 <el-radio label="3" border>失效</el-radio>
               </el-radio-group>
             </el-form-item>
             <el-form-item label="上下架">
-              <el-radio-group v-model="form.radio1">
+              <el-radio-group v-model="form.shelf">
                 <el-radio label="1" border>上架</el-radio>
                 <el-radio label="2" border>下架</el-radio>
                 <el-radio label="3" border>过滤</el-radio>
@@ -166,7 +167,7 @@
               </el-radio-group>
             </el-form-item>
             <el-form-item label="产品类型">
-              <el-radio-group v-model="form.radio2">
+              <el-radio-group v-model="form.projectType">
                 <el-radio label="1" border>重点</el-radio>
                 <el-radio label="2" border>原创</el-radio>
                 <el-radio label="3" border>海外</el-radio>
@@ -180,19 +181,19 @@
               229.99
             </el-form-item>
             <el-form-item label="尺码">
-              <el-radio-group v-model="form.radio3" size="medium">
+              <el-radio-group v-model="form.size" size="medium">
                 <el-radio-button label="1">XS</el-radio-button>
                 <el-radio-button label="2">S</el-radio-button>
                 <el-radio-button label="3">M</el-radio-button>
               </el-radio-group>
             </el-form-item>
             <el-form-item label="颜色分类">
-              <el-radio-group v-model="form.radio4" size="medium">
+              <el-radio-group v-model="form.colour" size="medium">
                 <el-radio-button label="1">米白波点-预定20个工作日发货</el-radio-button>
                 <el-radio-button label="2">藏青波点-预定18个工作日发货</el-radio-button>
                 <el-radio-button label="3">黑白波点-预定18个工作日发货</el-radio-button>
                 <el-radio-button label="4">红白波点-预定20个工作日发货</el-radio-button>
-              </el-radio-group>
+              </el-radio-group> 
             </el-form-item>
             <div class="line"></div>
             <el-form-item label="变体">
@@ -223,7 +224,8 @@
                 :data="tableData1"
                 highlight-current-row
                 border
-                style="width: 100%">
+                style="width: 100%"
+                @selection-change="handleSelectionChange">
                 序号
                 <el-table-column
                   type="selection"
@@ -235,11 +237,11 @@
                   width="120">
                 </el-table-column>
                 <el-table-column
-                  property="sku"
+                  property="priceIncrease"
                   label="加价/¥"
                   width="120">
                   <template slot-scope="scope">
-                    <el-input v-model="scope.row.sku"></el-input>
+                    <el-input v-model="scope.row.priceIncrease"></el-input>
                   </template>
                 </el-table-column>
                 <el-table-column
@@ -257,21 +259,19 @@
                   </template>
                 </el-table-column>
                 <el-table-column
-                  property="upc"
+                  property="sonSku"
                   label="子SKU">
                   <template slot-scope="scope">
-                    <el-input v-model="scope.row.upc"></el-input>
+                    <el-input v-model="scope.row.sonSku"></el-input>
                   </template>
                 </el-table-column>
                 <el-table-column
-                  property="selectPicture"
                   label="选择图片">
                   <template slot-scope="scope">
                     <el-button size="mini" @click="selectImg(scope.$index,dialogFormVisible = true)">选择图片</el-button>
                   </template>
                 </el-table-column>
                 <el-table-column
-                  property="selectedPictures"
                   label="已选图片">
                   <template slot-scope="scope">
                     <ul class="img-list">
@@ -283,7 +283,7 @@
                 </el-table-column>
                 <el-table-column label="标题/关键词/五大亮点">
                   <template slot-scope="scope">
-                    <el-button size="mini" @click="open4">编辑</el-button>
+                    <el-button size="mini" @click="variantEdit(scope.row,scope.$index)">编辑</el-button>
                   </template>
                 </el-table-column>
                 <el-table-column label="操作">
@@ -297,7 +297,7 @@
             
             <div class="oh">
               <el-button type="primary" class="right ml10">下一个</el-button>
-              <el-button type="success" class="right" >保存至待同步</el-button>
+              <el-button type="success" class="right" @click="addProducts">保存至待同步</el-button>
               <el-button type="primary" class="right">一键从英文翻译</el-button>
               <el-button type="primary" class="right">一键从中文翻译</el-button>
             </div>
@@ -319,6 +319,8 @@
       </el-tabs>
     </template>
     
+
+
     <!--弹窗区域-->
     <el-dialog title="" :visible.sync="dialogTableVisible" width="90%" >
       <!--内部弹窗区域-->
@@ -457,23 +459,23 @@
     <el-dialog title="标题/关键词/五大亮点" :visible.sync="dialogTableVisible4" width="60%">
       <el-form>
         <el-form-item label="标题">
-          <el-input  placeholder="标题长度不超过200个字符" v-model="form.detail.inf1">
+          <el-input  placeholder="标题长度不超过200个字符" v-model="form.variantTitle">
           </el-input>
         </el-form-item>
         <el-form-item label="五大亮点">
-          <el-input placeholder="五大亮点长度现已支持500个字符" v-model="form.detail.inf3" class="mt10"></el-input>
-          <el-input placeholder="五大亮点长度现已支持500个字符" v-model="form.detail.inf3" class="mt10"></el-input>
-          <el-input placeholder="五大亮点长度现已支持500个字符" v-model="form.detail.inf3" class="mt10"></el-input>
-          <el-input placeholder="五大亮点长度现已支持500个字符" v-model="form.detail.inf3" class="mt10"></el-input>
-          <el-input placeholder="五大亮点长度现已支持500个字符" v-model="form.detail.inf3"></el-input>
+          <el-input placeholder="五大亮点长度现已支持500个字符" v-model="form.variantBrightSpot[0]" class="mt10"></el-input>
+          <el-input placeholder="五大亮点长度现已支持500个字符" v-model="form.variantBrightSpot[1]" class="mt10"></el-input>
+          <el-input placeholder="五大亮点长度现已支持500个字符" v-model="form.variantBrightSpot[2]" class="mt10"></el-input>
+          <el-input placeholder="五大亮点长度现已支持500个字符" v-model="form.variantBrightSpot[3]" class="mt10"></el-input>
+          <el-input placeholder="五大亮点长度现已支持500个字符" v-model="form.variantBrightSpot[4]"></el-input>
           <span style="color:#F56C6C">五大亮点至少填写一条数据,第一条为必填</span>
         </el-form-item>
         <el-form-item label="关键词">
-          <el-input placeholder="请输入标题" v-model="form.detail.inf4" class="mt10"></el-input>
-          <el-input placeholder="请输入标题" v-model="form.detail.inf4" class="mt10"></el-input>
-          <el-input placeholder="请输入标题" v-model="form.detail.inf4" class="mt10"></el-input>
-          <el-input placeholder="请输入标题" v-model="form.detail.inf4" class="mt10"></el-input>
-          <el-input placeholder="请输入标题" v-model="form.detail.inf4"></el-input>
+          <el-input placeholder="请输入标题" v-model="form.variantKeyWord[0]" class="mt10"></el-input>
+          <el-input placeholder="请输入标题" v-model="form.variantKeyWord[1]" class="mt10"></el-input>
+          <el-input placeholder="请输入标题" v-model="form.variantKeyWord[2]" class="mt10"></el-input>
+          <el-input placeholder="请输入标题" v-model="form.variantKeyWord[3]" class="mt10"></el-input>
+          <el-input placeholder="请输入标题" v-model="form.variantKeyWord[4]"></el-input>
         </el-form-item>
       </el-form>
       <div slot="footer" class="dialog-footer">
@@ -676,13 +678,7 @@
         activeLabel: '',
         dialogFormVisible: false,
         dialogVariantVisible: false,
-        fileList: [{
-          name: 'food.jpeg',
-          url: 'https://fuss10.elemecdn.com/3/63/4e7f3a15429bfda99bce42a18cdd1jpeg.jpeg?imageMogr2/thumbnail/360x360/format/webp/quality/100'
-        }, {
-          name: 'food2.jpeg',
-          url: 'https://fuss10.elemecdn.com/3/63/4e7f3a15429bfda99bce42a18cdd1jpeg.jpeg?imageMogr2/thumbnail/360x360/format/webp/quality/100'
-        }],
+        fileList: [],
         tableData: {
           x: ['[CNY]', '[USD]', '[CAD]', '[MXN]', '[GBP]', '[EUR]', '[EUR]', '[EUR]', '[EUR]','[JPY]','[AUD]'],
           city: ['中国', '美国', '加拿大', '墨西哥', '英国', '法国', '德国', '意大利', '西班牙','日本','澳洲'],
@@ -716,6 +712,7 @@
         tableData1:[],
         form: {
           id:'0000001',
+          productPicUrl:[], //商品图片路径
           title:'', //标题
           classification:'', //分类
           options: [{
@@ -745,6 +742,15 @@
             stock:'',//库存
             preprocessing:'',//预处理         
           },
+          examine:'', //审核状态
+          shelf:'', //上下架
+          projectType:'', //产品类型
+          size:'', //产品尺码
+          colour:'', //颜色
+          variant:[], //变体数据
+          variantTitle:'', //变体title
+          variantBrightSpot:[], //变体亮点
+          variantKeyWord:[], //变体关键词
           options2: [{
             value: '1',
             label: 'New'
@@ -829,8 +835,14 @@
       open3:function(){
         this.dialogTableVisible3 = true;
       },
-      open4:function(){
+      variantEdit:function(row,index){
+        this.form.variantTitle = "";
+        this.form.variantBrightSpot = [];
+        this.form.variantKeyWord = [];
         this.dialogTableVisible4 = true;
+        row.variantTitle = this.form.variantTitle;
+        row.variantBrightSpot = this.form.variantBrightSpot;
+        row.variantKeyWord = this.form.variantKeyWord;
       },
       handleChange(value) {
         console.log(value);
@@ -863,7 +875,6 @@
         this.goodsImgList.map((item) => {
           if (item.status) {
             this.tableData1[id].imgList.push({imgSrc: item.imgSrc});
-            console.log(this.tableData1[id]);
             item.status = false;
           }
           else {
@@ -924,18 +935,34 @@
       //添加方法
       addProducts(){
         let params = {
+            productPicUrl:JSON.stringify(this.form.productPicUrl),
             title:JSON.stringify(this.form.title),
             classification :JSON.stringify(this.form.classification),
             brightSpot:JSON.stringify(this.form.brightSpot),
             keyWord:JSON.stringify(this.form.keyWord),
             status:JSON.stringify(this.form.status),
-            productInfo:JSON.stringify(this.form.productInfo)
+            productInfo:JSON.stringify(this.form.productInfo),
+            examine:JSON.stringify(this.form.examine),
+            shelf:JSON.stringify(this.form.shelf),
+            projectType:JSON.stringify(this.form.projectType),
+            size:JSON.stringify(this.form.size),
+            colour:JSON.stringify(this.form.colour),
+            variant:JSON.stringify(this.form.variant)
         }
         this.$http.post(`/restful/add/company_company_${localStorage.getItem("companyId")}/product`,
             params
         ).then(res => {
             console.log(res);
-        })
+        });
+
+      },
+      //切换变体表格
+      handleSelectionChange(val){
+        this.form.variant = val;
+      },
+      //上传成功钩子函数
+      uploadSuccess(response){
+        this.form.productPicUrl.push(response);
       }
     },
     mounted(){
