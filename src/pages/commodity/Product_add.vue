@@ -921,7 +921,7 @@
         this.variantTagId = index;
         this.tableData1 = this.variantArr[index].data
       },
-      //添加方法
+      //添加方法 
       addProducts(){
         let params = {
             title:JSON.stringify(this.form.title),
@@ -929,7 +929,8 @@
             brightSpot:JSON.stringify(this.form.brightSpot),
             keyWord:JSON.stringify(this.form.keyWord),
             status:JSON.stringify(this.form.status),
-            productInfo:JSON.stringify(this.form.productInfo)
+            productInfo:JSON.stringify(this.form.productInfo),
+            uid:localStorage.getItem("uid")
         }
         this.$http.post(`/restful/add/company_company_${localStorage.getItem("companyId")}/product`,
             params
